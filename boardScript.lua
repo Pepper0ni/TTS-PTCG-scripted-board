@@ -104,7 +104,10 @@ local listOfImages={
  "https://drive.google.com/uc?export=download&id=1RCREamh6ZYCR9x-nuEbyQOVEdnj1J6b4",
  "https://drive.google.com/uc?export=download&id=1U4joZmRWexyCwav8DU0qmZ0gTia6fwQ3",
  "https://drive.google.com/uc?export=download&id=1tWekU1DFHLqOizkZ0s5oO0haE3cPhOpd",
- "https://drive.google.com/uc?export=download&id=1aIdUnklr7bus09JAJ1HZNgLl7-5Ewl0J",}
+ "https://drive.google.com/uc?export=download&id=1aIdUnklr7bus09JAJ1HZNgLl7-5Ewl0J",
+ "https://drive.google.com/uc?export=download&id=1uBjBfjrLIQ_GrLKS8Wm7YenYR2J6UIVC",
+ "https://drive.google.com/uc?export=download&id=1Gu9E7NuEc4JifaI25jMwjHpzhAWqNsm-",
+}
 
 function onSave()
  return curImage
