@@ -1,5 +1,3 @@
-local curImage="1"
-
 local listOfImages={
  "https://drive.google.com/uc?export=download&id=138GQealekTYIb86Ho_49ssBYPW9F4e2k",
  "https://drive.google.com/uc?export=download&id=1G1iXI9JnMmqSJjAv19z20FXAgNZ-SZeO",
@@ -109,63 +107,44 @@ local listOfImages={
  "https://drive.google.com/uc?export=download&id=1Gu9E7NuEc4JifaI25jMwjHpzhAWqNsm-",
 }
 
-function onSave()
- return curImage
-end
+curImage=1
+lastButtonPress=os.time()
+curCut=7
 
-local lastButtonPress=os.time()
-
-function onLoad(script_state)
- if script_state != "" then curImage=script_state end
- if self.GetCustomObject().image!=listOfImages[tonumber(curImage)] then changeArt()end
+function onLoad(state)
+ if state!="" then
+  local save=json.parse(state)
+  curImage=tonumber(save.curImage)
+  curCut=save.curCut
+ else
+  curImage=1
+  curCut=7
+ end
+ if self.GetCustomObject().image!=listOfImages[curImage]then changeArt()end
 
  self.setSnapPoints({
-  {position={0.9,0.1,0.7},
-   rotation={0,0,0},
-   rotation_snap=true},--bench 1 card
-  {position={0.44,0.1,0.7},
-   rotation={0,0,0},
-   rotation_snap=true},--bench 2 card
-  {position={-0.02,0.1,0.7},
-   rotation={0,0,0},
-   rotation_snap=true},--bench 3 card
-  {position={-0.48,0.1,0.7},
-   rotation={0,0,0},
-   rotation_snap=true},--bench 4 card
-  {position={-0.94,0.1,0.7},
-   rotation={0,0,0},
-   rotation_snap=true},--bench 5 card
-  {position={0.75,0.1,0.95},
-   rotation={0,0,0},
-   rotation_snap=true},--bench 1 energy
-  {position={0.29,0.1,0.95},
-   rotation={0,0,0},
-   rotation_snap=true},--bench 2 energy
-  {position={-0.17,0.1,0.95},
-   rotation={0,0,0},
-   rotation_snap=true},--bench 3 energy
-  {position={-0.63,0.1,0.95},
-   rotation={0,0,0},
-   rotation_snap=true},--bench 4 energy
-  {position={-1.09,0.1,0.95},
-   rotation={0,0,0},
-   rotation_snap=true},--bench 5 energy
+  {position={0.9,0.1,0.7}},--bench 1 card
+  {position={0.44,0.1,0.7}},--bench 2 card
+  {position={-0.02,0.1,0.7}},--bench 3 card
+  {position={-0.48,0.1,0.7}},--bench 4 card
+  {position={-0.94,0.1,0.7}},--bench 5 card
+  {position={0.75,0.1,0.95},rotation={0,0,0},rotation_snap=true},--bench 1 energy
+  {position={0.29,0.1,0.95},rotation={0,0,0},rotation_snap=true},--bench 2 energy
+  {position={-0.17,0.1,0.95},rotation={0,0,0},rotation_snap=true},--bench 3 energy
+  {position={-0.63,0.1,0.95},rotation={0,0,0},rotation_snap=true},--bench 4 energy
+  {position={-1.09,0.1,0.95},rotation={0,0,0},rotation_snap=true},--bench 5 energy
   {position={-0.0025,0.1,-0.715}},--active card
-  {position={-0.1525,0.1,-0.465},
-   rotation={0,0,0},
-   rotation_snap=true},--active energy
-  {position={1.537,0.1,-0.398}},--prize 1
-  {position={1.263,0.1,-0.398}},--prize 2
+  {position={-0.1525,0.1,-0.465},rotation={0,0,0},rotation_snap=true},--active energy
+  {position={1.537,0.1,-0.401}},--prize 1
+  {position={1.263,0.1,-0.401}},--prize 2
   {position={1.537,0.1,0.03}},--prize 3
   {position={1.263,0.1,0.03}},--prize 4
-  {position={1.537,0.1,0.463}},--prize 5
-  {position={1.263,0.1,0.463}},--prize 6
-  {position={-1.41,0.1,0.03}},--discard
-  {position={-1.41,0.1,0.463}},--deck
+  {position={1.537,0.1,0.461}},--prize 5
+  {position={1.263,0.1,0.461}},--prize 6
+  {position={-1.41,0.1,0.03},rotation={0,0,0},rotation_snap=true},--deck
+  {position={-1.41,0.1,0.463},rotation={0,0,0},rotation_snap=true},--discard
   {position={-1.41,0.1,-0.38}},--GX Coin
-  {position={-1.36,0.1,-0.76},
-   rotation={0,270,0},
-   rotation_snap=true},--Stadium
+  {position={-1.36,0.1,-0.76}},--Stadium
 })
 
  local selfScale=self.getScale()
@@ -173,10 +152,10 @@ function onLoad(script_state)
  label='Switch',
  tooltip='Switch Bench with Battle Field',
  font_size=200,
- color={1,0,0},
+ color={0,0,0.5},
  font_color={1,1,1},
- width=1120,
- height=200,
+ width=1250,
+ height=250,
  scale={1/selfScale.x,1/selfScale.y,1/selfScale.z},
  position={0,0.1,0.47},
  rotation={0,0,0},
@@ -204,99 +183,197 @@ function onLoad(script_state)
  params.position[1]=2*spaceBetween+offset
  params.click_function='clickSwitch5'
  self.createButton(params)
- 
- params.label='<'
+
+ params.position={-1.4,0.1,0.7}
+ params.click_function='set6Prizes'
+ params.label='Setup 6 Prizes'
+ params.tooltip='Take 6 prizes from your Deck'
+ self.createButton(params)
+
+ params.position[3]=0.8
+ params.click_function='set4Prizes'
+ params.label='Setup 4 Prizes'
+ params.tooltip='Take 4 prizes from your Deck'
+ self.createButton(params)
+
+
+ params.color={1,0,0}
+ params.label='-'
  params.tooltip='Previous Board Art'
  params.width=200
  params.height=250
  params.position={-1.69,0.1,-0.97}
  params.click_function="previousArt"
  self.createButton(params)
- 
- params.label='>'
+
+ params.label='+'
+ params.color={0,0.5,0}
  params.tooltip='Next Board Art'
  params.position={-1.57,0.1,-0.97}
  params.click_function="nextArt"
  self.createButton(params)
- 
- local textParams={function_owner=self,
-   input_function="updateArtToText",
-   position={-1.63,0.1,-0.97},
-   scale={1/selfScale.x,1/selfScale.y,1/selfScale.z},
-   width=400,
-   height=223,
-   font_size=200,
-   color={1,0,0},
-   font_color={1,1,1},
-   tooltip="Set Board Art",
-   alignment=3,
-   value=curImage,
-   }
- 
- self.createInput(textParams)
+
+ params.tooltip='Increase Cut Amount'
+ params.width=510
+ params.position={1.63,0.1,0.04}
+ params.click_function="incCut"
+ self.createButton(params)
+
+ params.color={1,0,0}
+ params.label='-'
+ params.color={1,0,0}
+ params.tooltip='Derease Cut Amount'
+ params.position={1.63,0.1,0.12}
+ params.click_function="decCut"
+ self.createButton(params)
+
+ params.color={0,0,0.5}
+ params.label='Cut\nTop X'
+ params.tooltip='Cut the top X cards of the deck and places them aside, as Cutting the top of a face-Down deck is awkward in TTS otherwise. What you think cuts from the top actually cuts from the bottom.\nX is set by the number below.'
+ params.position={1.63,0.1,-0.1}
+ params.height=500
+ params.click_function="cutDeck"
+ self.createButton(params)
+
+ local params={function_owner=self,
+  input_function="updateArtToText",
+  position={-1.63,0.1,-0.97},
+  scale={1/selfScale.x,1/selfScale.y,1/selfScale.z},
+  width=400,
+  height=223,
+  font_size=200,
+  color={0,0,0.5},
+  font_color={1,1,1},
+  tooltip="Set Board Art",
+  alignment=3,
+  value=tostring(curImage),
+ }
+
+ self.createInput(params)
+
+ params.input_function="setCutAmount"
+ params.tooltip="Amount to Cut"
+ params.width=510
+ params.position={1.63,0.1,0.08}
+ params.value=tostring(curCut)
+ self.createInput(params)
 end
 
 function clickSwitch1(obj,color,alt_click)
-  switch(self.positionToWorld({-0.0025,1.11,-0.715}),self.positionToWorld({0.9,1.11,0.7}),color)
+ switch(self.positionToWorld({-0.0025,1.11,-0.715}),self.positionToWorld({0.9,1.11,0.7}),color)
 end
 function clickSwitch2(obj,color,alt_click)
-  switch(self.positionToWorld({-0.0025,1.11,-0.715}),self.positionToWorld({0.44,1.11,0.7}),color)
+ switch(self.positionToWorld({-0.0025,1.11,-0.715}),self.positionToWorld({0.44,1.11,0.7}),color)
 end
 function clickSwitch3(obj,color,alt_click)
-  switch(self.positionToWorld({-0.0025,1.11,-0.715}),self.positionToWorld({-0.02,1.11,0.7}),color)
+ switch(self.positionToWorld({-0.0025,1.11,-0.715}),self.positionToWorld({-0.02,1.11,0.7}),color)
 end
 function clickSwitch4(obj,color,alt_click)
-  switch(self.positionToWorld({-0.0025,1.11,-0.715}),self.positionToWorld({-0.48,1.11,0.7}),color)
+ switch(self.positionToWorld({-0.0025,1.11,-0.715}),self.positionToWorld({-0.48,1.11,0.7}),color)
 end
 function clickSwitch5(obj,color,alt_click)
-  switch(self.positionToWorld({-0.0025,1.11,-0.715}),self.positionToWorld({-0.94,1.11,0.7}),color)
+ switch(self.positionToWorld({-0.0025,1.11,-0.715}),self.positionToWorld({-0.94,1.11,0.7}),color)
 end
 
 function previousArt(obj,color,alt_click)
- curImage=tostring(tonumber(curImage) - 1)
- if curImage == "0" then curImage=tostring(#listOfImages) end
+ curImage=curImage-1
+ if curImage==0 then curImage=#listOfImages end
  changeArt()
 end
 
 function nextArt(obj,color,alt_click)
- curImage=tostring(tonumber(curImage)+1)
- if tonumber(curImage) > tonumber(#listOfImages) then curImage="1" end
+ curImage=curImage+1
+ if curImage>#listOfImages then curImage=1 end
  changeArt()
 end
 
-function updateArtToText(obj,color,input_value,selected)
- if not selected and input_value != curImage then
-  local numValue=tonumber(input_value)
-  if numValue != nil then
-   numValue=math.floor(numValue)
-   if numValue > 0 then
-    if numValue <= #listOfImages then
-     curImage=tostring(numValue)
-     changeArt()
-    else
-     broadcastToColor("No art found,enter a lower number.",color,{1,0,0})
-     return curImage
-    end
-   else
-    broadcastToColor("Enter a number above 0.",color,{1,0,0})
-    return curImage
-   end
+function updateArtToText(obj,color,value,selected)
+ if not selected and value!=curImage then
+  newValue=checkIfNum(value,#listOfImages,curImage,color)
+  if newValue!=curImage then
+   curImage=newValue
+   changeArt()
+  end
+  return tostring(curImage)
+ end
+end
+
+function setCutAmount(obj,color,value,selected)
+ if not selected then
+  curCut=checkIfNum(value,100,curCut,color)
+  saveData()
+  return tostring(curCut)
+ end
+end
+
+function checkIfNum(value,max,current,color)
+ local numValue=tonumber(value)
+ if numValue!=nil then
+  numValue=math.floor(numValue)
+  if numValue>0 then
+   if numValue<=max then return numValue else broadcastToColor("Enter a lower number.",color,{1,0,0})end
+  else broadcastToColor("Enter a number above 0.",color,{1,0,0})end
+ else broadcastToColor("Enter a number.",color,{1,0,0})end
+ return current
+end
+
+function incCut()
+ curCut=curCut+1
+ self.editInput({index=1,value=tostring(curCut)})
+ saveData()
+end
+
+function decCut(obj,color)
+ if curCut>2 then
+  curCut=curCut-1
+  self.editInput({index=1,value=tostring(curCut)})
+  saveData()
+ else
+  broadcastToColor("Already at minimum.",color,{1,0,0})
+ end
+end
+
+function cutDeck(obj,color)
+ deck=getDeck(color)
+ if deck then
+  decksize=deck.getQuantity()
+  if decksize>=curCut+2 then
+   decks=deck.cut(decksize-curCut)
+   selfRot=self.GetRotation()
+   selfRot.z=selfRot.z+180
+   decks[2].setRotation(selfRot)
+   decks[1].setPositionSmooth(self.positionToWorld({-2,1,0.03}),false,true)
   else
-   broadcastToColor("Enter a number.",color,{1,0,0})
-   return curImage
+   broadcastToColor("Deck is too small.",color,{1,0,0})
   end
  end
 end
 
+function getDeck(color)
+ local zone=Physics.cast({origin=self.positionToWorld({-1.41,0.6,0.03}),direction={0,1,0},type=3,size={2.5,1,4},max_distance=0,orientation=self.GetRotation()})
+ for _,collision in pairs(zone) do
+  hit=collision.hit_object
+  if hit.type=="Deck"then
+   return hit
+  end
+ end
+ broadcastToColor("Deck doesn't exist.",color,{1,0,0})
+end
+
 function changeArt()
- self.setCustomObject({image=listOfImages[tonumber(curImage)]})
- self.script_state=curImage
+ self.setCustomObject({image=listOfImages[curImage]})
+ saveData()
  self.reload()
 end
 
+function saveData()
+ local save={curImage=curImage,curCut=curCut}
+ self.script_state=json.serialize(save)
+end
+
 function switch(pos1,pos2,color)
- if os.difftime(os.time(),lastButtonPress) < 0.5 then broadcastToColor("You can't switch that fast.",color,{1,0,0}) return end
- log("switching " .. tostring(pos1.x) .. " " .. tostring(pos1.y) .. " " .. tostring(pos1.z) .. " " .. tostring(pos2.x) .. " " .. tostring(pos2.y) .. " " .. tostring(pos2.z))
+ if os.difftime(os.time(),lastButtonPress) < 0.5 then broadcastToColor("You can't switch that fast.",color,{1,0,0})return end
+ log("switching "..tostring(pos1.x).." "..tostring(pos1.y).." "..tostring(pos1.z).." "..tostring(pos2.x).." "..tostring(pos2.y).." "..tostring(pos2.z))
  lastButtonPress=os.time()
  local zone1=Physics.cast({origin=pos1,direction={0,1,0},type=3,size={2.5,2,4},max_distance=0,orientation=self.GetRotation()})
  local zone2=Physics.cast({origin=pos2,direction={0,1,0},type=3,size={2.5,2,4},max_distance=0,orientation=self.GetRotation()})
@@ -311,10 +388,24 @@ end
 
 function moveObject(object,srcOrigin,dstOrigin)
  objPos=object.getPosition()
- relativePos={x=objPos.x - srcOrigin.x,
-         y=objPos.y - srcOrigin.y,
-         z=objPos.z - srcOrigin.z}
- object.setPositionSmooth({x=dstOrigin.x+relativePos.x,
-      y=dstOrigin.y+relativePos.y,
-      z=dstOrigin.z+relativePos.z,},false,true)
+ relativePos={x=objPos.x-srcOrigin.x,y=objPos.y-srcOrigin.y,z=objPos.z-srcOrigin.z}
+ object.setPositionSmooth({x=dstOrigin.x+relativePos.x,y=dstOrigin.y+relativePos.y,z=dstOrigin.z+relativePos.z,},false,true)
+end
+
+function set6Prizes(obj,color,alt_click)
+ setPrizes(color,6)
+end
+
+function set4Prizes(obj,color,alt_click)
+ setPrizes(color,4)
+end
+
+function setPrizes(color,number)
+ deck=getDeck(color)
+ if deck then
+  for c=0,number-1,1 do
+   deck.takeObject({position=self.positionToWorld({1.263+(0.274*(c%2)),1,-0.401+(math.floor(c/2)*0.431)})})
+  end
+  return
+ end
 end
