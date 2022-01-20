@@ -128,13 +128,13 @@ function onLoad(state)
   {position={-0.02,0.1,0.7}},--bench 3 card
   {position={-0.48,0.1,0.7}},--bench 4 card
   {position={-0.94,0.1,0.7}},--bench 5 card
-  {position={0.75,0.1,0.95},rotation={0,0,0},rotation_snap=true},--bench 1 energy
-  {position={0.29,0.1,0.95},rotation={0,0,0},rotation_snap=true},--bench 2 energy
-  {position={-0.17,0.1,0.95},rotation={0,0,0},rotation_snap=true},--bench 3 energy
-  {position={-0.63,0.1,0.95},rotation={0,0,0},rotation_snap=true},--bench 4 energy
-  {position={-1.09,0.1,0.95},rotation={0,0,0},rotation_snap=true},--bench 5 energy
+  {position={0.71,0.1,0.95},rotation={0,0,0},rotation_snap=true},--bench 1 energy
+  {position={0.25,0.1,0.95},rotation={0,0,0},rotation_snap=true},--bench 2 energy
+  {position={-0.21,0.1,0.95},rotation={0,0,0},rotation_snap=true},--bench 3 energy
+  {position={-0.67,0.1,0.95},rotation={0,0,0},rotation_snap=true},--bench 4 energy
+  {position={-1.12,0.1,0.95},rotation={0,0,0},rotation_snap=true},--bench 5 energy
   {position={-0.0025,0.1,-0.715}},--active card
-  {position={-0.1525,0.1,-0.465},rotation={0,0,0},rotation_snap=true},--active energy
+  {position={-0.1925,0.1,-0.465},rotation={0,0,0},rotation_snap=true},--active energy
   {position={1.537,0.1,-0.401}},--prize 1
   {position={1.263,0.1,-0.401}},--prize 2
   {position={1.537,0.1,0.03}},--prize 3
