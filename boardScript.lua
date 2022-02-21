@@ -260,19 +260,19 @@ function onLoad(state)
 end
 
 function clickSwitch1(obj,color,alt_click)
- switch(self.positionToWorld({-0.0025,1.11,-0.715}),self.positionToWorld({0.9,1.11,0.7}),color)
+ switch(self.positionToWorld({-0.0225,1.11,-0.715}),self.positionToWorld({0.88,1.11,0.7}),color)
 end
 function clickSwitch2(obj,color,alt_click)
- switch(self.positionToWorld({-0.0025,1.11,-0.715}),self.positionToWorld({0.44,1.11,0.7}),color)
+ switch(self.positionToWorld({-0.0225,1.11,-0.715}),self.positionToWorld({0.42,1.11,0.7}),color)
 end
 function clickSwitch3(obj,color,alt_click)
- switch(self.positionToWorld({-0.0025,1.11,-0.715}),self.positionToWorld({-0.02,1.11,0.7}),color)
+ switch(self.positionToWorld({-0.0225,1.11,-0.715}),self.positionToWorld({-0.04,1.11,0.7}),color)
 end
 function clickSwitch4(obj,color,alt_click)
- switch(self.positionToWorld({-0.0025,1.11,-0.715}),self.positionToWorld({-0.48,1.11,0.7}),color)
+ switch(self.positionToWorld({-0.0225,1.11,-0.715}),self.positionToWorld({-0.5,1.11,0.7}),color)
 end
 function clickSwitch5(obj,color,alt_click)
- switch(self.positionToWorld({-0.0025,1.11,-0.715}),self.positionToWorld({-0.94,1.11,0.7}),color)
+ switch(self.positionToWorld({-0.0225,1.11,-0.715}),self.positionToWorld({-0.96,1.11,0.7}),color)
 end
 
 function previousArt(obj,color,alt_click)
@@ -372,7 +372,7 @@ function saveData()
 end
 
 function switch(pos1,pos2,color)
- if os.difftime(os.time(),lastButtonPress) < 0.5 then broadcastToColor("You can't switch that fast.",color,{1,0,0})return end
+ if os.difftime(os.time(),lastButtonPress)<0.5 then broadcastToColor("You can't switch that fast.",color,{1,0,0})return end
  log("switching "..tostring(pos1.x).." "..tostring(pos1.y).." "..tostring(pos1.z).." "..tostring(pos2.x).." "..tostring(pos2.y).." "..tostring(pos2.z))
  lastButtonPress=os.time()
  local zone1=Physics.cast({origin=pos1,direction={0,1,0},type=3,size={2.5,2,4},max_distance=0,orientation=self.GetRotation()})
