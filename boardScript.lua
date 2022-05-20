@@ -107,139 +107,64 @@ local listOfImages={
  "1832410963637375038/DB265CF5C6EC0C231D023252CE0AF0FFCF7F1BE6/"
 }
 
-curImage=1
 lastButtonPress=os.time()
-curCut=7
+snaps5={
+ {position={0.9,0.1,0.7}},--bench 1 card
+ {position={0.44,0.1,0.7}},--bench 2 card
+ {position={-0.02,0.1,0.7}},--bench 3 card
+ {position={-0.48,0.1,0.7}},--bench 4 card
+ {position={-0.94,0.1,0.7}},--bench 5 card
+ {position={0.9,0.1,0.575}},--bench 1 BREAK
+ {position={0.44,0.1,0.575}},--bench 2 BREAK
+ {position={-0.02,0.1,0.575}},--bench 3 BREAK
+ {position={-0.48,0.1,0.575}},--bench 4 BREAK
+ {position={-0.94,0.1,0.575}},--bench 5 BREAK
+ {position={0.71,0.1,0.9525},rotation_snap=true},--bench 1 energy
+ {position={0.25,0.1,0.9525},rotation_snap=true},--bench 2 energy
+ {position={-0.21,0.1,0.9525},rotation_snap=true},--bench 3 energy
+ {position={-0.67,0.1,0.9525},rotation_snap=true},--bench 4 energy
+ {position={-1.13,0.1,0.9525},rotation_snap=true},--bench 5 energy
+ {position={-0.0025,0.1,-0.715}},--active card
+ {position={-0.0025,0.1,-0.84}},--active BREAK
+ {position={-0.1925,0.1,-0.4625},rotation_snap=true},--active energy
+ {position={1.537,0.1,-0.401}},--prize 1
+ {position={1.263,0.1,-0.401}},--prize 2
+ {position={1.537,0.1,0.03}},--prize 3
+ {position={1.263,0.1,0.03}},--prize 4
+ {position={1.537,0.1,0.461}},--prize 5
+ {position={1.263,0.1,0.461}},--prize 6
+ {position={-1.41,0.1,0.03},rotation_snap=true},--deck
+ {position={-1.41,0.1,0.463},rotation_snap=true},--discard
+ {position={-1.41,0.1,-0.38}},--GX Coin
+ {position={-1.36,0.1,-0.76}},--Stadium
+}
+snaps8={
+ {position={0.44,0.1,0.05}},--bench 6 card
+ {position={-0.02,0.1,0.05}},--bench 7 card
+ {position={-0.48,0.1,0.05}},--bench 8 card
+ {position={0.44,0.1,-0.075}},--bench 6 BREAK
+ {position={-0.02,0.1,-0.075}},--bench 7 BREAK
+ {position={-0.48,0.1,-0.075}},--bench 8 BREAK
+ {position={0.25,0.1,0.3025},rotation_snap=true},--bench 6 energy
+ {position={-0.21,0.1,0.3025},rotation_snap=true},--bench 7 energy
+ {position={-0.67,0.1,0.3025},rotation_snap=true},--bench 8 energy
+}
 
 function onLoad(state)
  if state!="" then
   local save=json.parse(state)
   curImage=tonumber(save.curImage)
   curCut=save.curCut
+  bench8=save.bench8
  else
   curImage=1
   curCut=7
+  bench8=false
  end
  if self.GetCustomObject().image!=getSteamUrl(listOfImages[curImage])then changeArt()end
-
- self.setSnapPoints({
-  {position={0.9,0.1,0.7}},--bench 1 card
-  {position={0.44,0.1,0.7}},--bench 2 card
-  {position={-0.02,0.1,0.7}},--bench 3 card
-  {position={-0.48,0.1,0.7}},--bench 4 card
-  {position={-0.94,0.1,0.7}},--bench 5 card
-  {position={0.9,0.1,0.575}},--bench 1 BREAK
-  {position={0.44,0.1,0.575}},--bench 2 BREAK
-  {position={-0.02,0.1,0.575}},--bench 3 BREAK
-  {position={-0.48,0.1,0.575}},--bench 4 BREAK
-  {position={-0.94,0.1,0.575}},--bench 5 BREAK
-  {position={0.71,0.1,0.9525},rotation={0,0,0},rotation_snap=true},--bench 1 energy
-  {position={0.25,0.1,0.9525},rotation={0,0,0},rotation_snap=true},--bench 2 energy
-  {position={-0.21,0.1,0.9525},rotation={0,0,0},rotation_snap=true},--bench 3 energy
-  {position={-0.67,0.1,0.9525},rotation={0,0,0},rotation_snap=true},--bench 4 energy
-  {position={-1.12,0.1,0.9525},rotation={0,0,0},rotation_snap=true},--bench 5 energy
-  {position={-0.0025,0.1,-0.715}},--active card
-  {position={-0.0025,0.1,-0.84}},--active BREAK
-  {position={-0.1925,0.1,-0.4625},rotation={0,0,0},rotation_snap=true},--active energy
-  {position={1.537,0.1,-0.401}},--prize 1
-  {position={1.263,0.1,-0.401}},--prize 2
-  {position={1.537,0.1,0.03}},--prize 3
-  {position={1.263,0.1,0.03}},--prize 4
-  {position={1.537,0.1,0.461}},--prize 5
-  {position={1.263,0.1,0.461}},--prize 6
-  {position={-1.41,0.1,0.03},rotation={0,0,0},rotation_snap=true},--deck
-  {position={-1.41,0.1,0.463},rotation={0,0,0},rotation_snap=true},--discard
-  {position={-1.41,0.1,-0.38}},--GX Coin
-  {position={-1.36,0.1,-0.76}},--Stadium
-})
+ setUpBoard()
 
  local selfScale=self.getScale()
- local params={function_owner=self,
- label='Switch',
- tooltip='Switch Bench with Battle Field',
- font_size=200,
- color={0,0,0.5},
- font_color={1,1,1},
- width=1250,
- height=250,
- scale={1/selfScale.x,1/selfScale.y,1/selfScale.z},
- position={0,0.1,0.4},
- rotation={0,0,0},
- }
-
- local offset=0.025
- local spaceBetween=0.46
-
- params.position[1]=-2*spaceBetween+offset
- params.click_function='clickSwitch1'
- self.createButton(params)
-
- params.position[1]=-1*spaceBetween+offset
- params.click_function='clickSwitch2'
- self.createButton(params)
-
- params.position[1]=offset
- params.click_function='clickSwitch3'
- self.createButton(params)
-
- params.position[1]=1*spaceBetween+offset
- params.click_function='clickSwitch4'
- self.createButton(params)
-
- params.position[1]=2*spaceBetween+offset
- params.click_function='clickSwitch5'
- self.createButton(params)
-
- params.position={-1.4,0.1,0.7}
- params.click_function='set6Prizes'
- params.label='Setup 6 Prizes'
- params.tooltip='Take 6 prizes from your Deck'
- self.createButton(params)
-
- params.position[3]=0.8
- params.click_function='set4Prizes'
- params.label='Setup 4 Prizes'
- params.tooltip='Take 4 prizes from your Deck'
- self.createButton(params)
-
-
- params.color={1,0,0}
- params.label='-'
- params.tooltip='Previous Board Art'
- params.width=200
- params.height=250
- params.position={-1.69,0.1,-0.97}
- params.click_function="previousArt"
- self.createButton(params)
-
- params.label='+'
- params.color={0,0.5,0}
- params.tooltip='Next Board Art'
- params.position={-1.57,0.1,-0.97}
- params.click_function="nextArt"
- self.createButton(params)
-
- params.tooltip='Increase Cut Amount'
- params.width=510
- params.position={1.63,0.1,0.04}
- params.click_function="incCut"
- self.createButton(params)
-
- params.label='-'
- params.color={1,0,0}
- params.tooltip='Derease Cut Amount'
- params.position={1.63,0.1,0.12}
- params.click_function="decCut"
- self.createButton(params)
-
- params.color={0,0,0.5}
- params.label='Cut\nTop X'
- params.tooltip='Cut the top X cards of the deck and places them aside, as Cutting the top of a face-Down deck is awkward in TTS otherwise. What you think cuts from the top actually cuts from the bottom.\nX is set by the number below.'
- params.position={1.63,0.1,-0.1}
- params.height=500
- params.click_function="cutDeck"
- self.createButton(params)
-
  local params={function_owner=self,
   input_function="updateArtToText",
   position={-1.63,0.1,-0.97},
@@ -253,31 +178,137 @@ function onLoad(state)
   alignment=3,
   value=tostring(curImage),
  }
-
  self.createInput(params)
 
  params.input_function="setCutAmount"
  params.tooltip="Amount to Cut"
- params.width=510
- params.position={1.63,0.1,0.08}
+ params.width=450
+ params.position={1.63,0.1,0.05}
  params.value=tostring(curCut)
  self.createInput(params)
+
+ wellData={Transform={posX=0,posY=0,posZ=0,rotX=0,rotY=0,rotZ=0,scaleX=0.01,scaleY=0.01,scaleZ=0.01},Name="Custom_Assetbundle_Bag",Nickname="Attach Well",Description="Place cards you attach to Pokemon here!",Locked=true,CustomAssetbundle={AssetbundleURL="http://chry.me/up/new_blackhole4.unity3d",AssetbundleSecondaryURL="",MaterialIndex=2,TypeIndex=6,LoopingEffectIndex=0},Bag={Order=0},LuaScript=WellLuaScript
+}
+
+ self.addContextMenuItem("Delete Wells",function(player_color)deleteWells()end)
+ self.addContextMenuItem("Respawn Wells",function(player_color)createWells()end)
+ createWells()
 end
 
-function clickSwitch1(obj,color,alt_click)
- switch(self.positionToWorld({-0.0225,1.11,-0.715}),self.positionToWorld({0.88,1.11,0.7}),color)
+for c=1,5 do
+ _G["clickSwitch"..tostring(c)]=function(_,color)switch(self.positionToWorld({-0.0225,1.11,-0.715}),self.positionToWorld({1.34-(c*0.46),1.11,0.7}),color)end
 end
-function clickSwitch2(obj,color,alt_click)
- switch(self.positionToWorld({-0.0225,1.11,-0.715}),self.positionToWorld({0.42,1.11,0.7}),color)
+for c=6,8 do
+ _G["clickSwitch"..tostring(c)]=function(_,color)switch(self.positionToWorld({-0.0225,1.11,-0.715}),self.positionToWorld({3.18-(c*0.46),1.11,0.05}),color)end
 end
-function clickSwitch3(obj,color,alt_click)
- switch(self.positionToWorld({-0.0225,1.11,-0.715}),self.positionToWorld({-0.04,1.11,0.7}),color)
-end
-function clickSwitch4(obj,color,alt_click)
- switch(self.positionToWorld({-0.0225,1.11,-0.715}),self.positionToWorld({-0.5,1.11,0.7}),color)
-end
-function clickSwitch5(obj,color,alt_click)
- switch(self.positionToWorld({-0.0225,1.11,-0.715}),self.positionToWorld({-0.96,1.11,0.7}),color)
+
+function setUpBoard()
+ self.clearButtons()
+ local snaps={}
+ if bench8 then
+  for c=1,#snaps5 do
+   snaps[#snaps+1]=snaps5[c]
+  end
+  for c=1,#snaps8 do
+   snaps[#snaps+1]=snaps8[c]
+  end
+ else
+  snaps=snaps5
+ end
+ self.setSnapPoints(snaps)
+ local selfScale=self.getScale()
+ local params={function_owner=self,
+ label='Switch',
+ tooltip='Switch Bench with Battle Field',
+ font_size=200,
+ color={0,0,0.5},
+ font_color={1,1,1},
+ width=1250,
+ height=250,
+ scale={1/selfScale.x,1/selfScale.y,1/selfScale.z},
+ position={0,0.1,0.4},
+ rotation={0,0,0},
+ }
+ local offset=0.025
+ local spaceBetween=0.46
+ for c=1,5 do
+  params.position[1]=(c-3)*spaceBetween+offset
+  params.click_function='clickSwitch'..tostring(c)
+  self.createButton(params)
+ end
+ if bench8 then
+  params.position[3]=-0.25
+  for c=6,8 do
+   params.position[1]=(c-7)*spaceBetween+offset
+   params.click_function='clickSwitch'..tostring(c)
+   self.createButton(params)
+  end
+ end
+
+ params.position={-1.4,0.1,0.7}
+ params.click_function='set6Prizes'
+ params.label='Setup 6 Prizes'
+ params.tooltip='Take 6 prizes from your Deck'
+ self.createButton(params)
+
+ params.position[3]=0.8
+ params.click_function='set4Prizes'
+ params.label='Setup 4 Prizes'
+ params.tooltip='Take 4 prizes from your Deck'
+ self.createButton(params)
+
+ params.position[1]=1.4
+ params.click_function='toggleBench'
+ if bench8 then
+  params.label='Normal Bench'
+  params.tooltip='Switch to a 5 mon bench'
+ else
+  params.label='Large Bench'
+  params.tooltip='Switch to an 8 mon bench'
+ end
+ self.createButton(params)
+
+ params.label='Cut\nTop\nX'
+ params.tooltip='Cut the top X cards of the deck and places them aside, as Cutting the top of a face-Down deck is awkward in TTS otherwise. What you think cuts from the top actually cuts from the bottom.\nX is set by the number below.'
+ params.position={1.63,0.1,-0.12}
+ params.height=640
+ params.width=450
+ params.click_function="cutTopDeck"
+ self.createButton(params)
+
+ params.label='Cut\nBot.\nX'
+ params.tooltip='Cut the bottom X cards of the deck and places them aside\nX is set by the number below.'
+ params.position[3]=0.22
+ params.click_function="cutBottomDeck"
+ self.createButton(params)
+
+ params.label='+'
+ params.tooltip='Increase Cut Amount'
+ params.height=250
+ params.color={0,0.5,0}
+ params.position[3]=0.01
+ params.click_function="incCut"
+ self.createButton(params)
+
+ params.label='-'
+ params.color={1,0,0}
+ params.tooltip='Decrease Cut Amount'
+ params.position[3]=0.09
+ params.click_function="decCut"
+ self.createButton(params)
+
+ params.tooltip='Previous Board Art'
+ params.width=200
+ params.position={-1.69,0.1,-0.97}
+ params.click_function="previousArt"
+ self.createButton(params)
+
+ params.label='+'
+ params.color={0,0.5,0}
+ params.tooltip='Next Board Art'
+ params.position[1]=-1.57
+ params.click_function="nextArt"
+ self.createButton(params)
 end
 
 function previousArt(obj,color,alt_click)
@@ -338,7 +369,7 @@ function decCut(obj,color)
  end
 end
 
-function cutDeck(obj,color)
+function cutTopDeck(obj,color)
  deck=getDeck(color)
  if deck then
   decksize=deck.getQuantity()
@@ -348,6 +379,22 @@ function cutDeck(obj,color)
    selfRot.z=selfRot.z+180
    decks[2].setRotation(selfRot)
    decks[1].setPositionSmooth(self.positionToWorld({-2,1,0.03}),false,true)
+  else
+   broadcastToColor("Deck is too small.",color,{1,0,0})
+  end
+ end
+end
+
+function cutBottomDeck(obj,color)
+ deck=getDeck(color)
+ if deck then
+  decksize=deck.getQuantity()
+  if decksize>=curCut+2 then
+   decks=deck.cut(curCut)
+   selfRot=self.GetRotation()
+   selfRot.z=selfRot.z+180
+   decks[2].setRotation(selfRot)
+   decks[2].setPositionSmooth(self.positionToWorld({-2,1,0.03}),false,true)
   else
    broadcastToColor("Deck is too small.",color,{1,0,0})
   end
@@ -376,13 +423,12 @@ function getSteamUrl(url)
 end
 
 function saveData()
- local save={curImage=curImage,curCut=curCut}
+ local save={curImage=curImage,curCut=curCut,bench8=bench8}
  self.script_state=json.serialize(save)
 end
 
 function switch(pos1,pos2,color)
  if os.difftime(os.time(),lastButtonPress)<0.5 then broadcastToColor("You can't switch that fast.",color,{1,0,0})return end
- log("switching "..tostring(pos1.x).." "..tostring(pos1.y).." "..tostring(pos1.z).." "..tostring(pos2.x).." "..tostring(pos2.y).." "..tostring(pos2.z))
  lastButtonPress=os.time()
  local zone1=Physics.cast({origin=pos1,direction={0,1,0},type=3,size={2.5,2,4},max_distance=0,orientation=self.GetRotation()})
  local zone2=Physics.cast({origin=pos2,direction={0,1,0},type=3,size={2.5,2,4},max_distance=0,orientation=self.GetRotation()})
@@ -398,7 +444,55 @@ end
 function moveObject(object,srcOrigin,dstOrigin)
  objPos=object.getPosition()
  relativePos={x=objPos.x-srcOrigin.x,y=objPos.y-srcOrigin.y,z=objPos.z-srcOrigin.z}
- object.setPositionSmooth({x=dstOrigin.x+relativePos.x,y=dstOrigin.y+relativePos.y,z=dstOrigin.z+relativePos.z,},false,true)
+ object.setPositionSmooth({x=dstOrigin.x+relativePos.x,y=dstOrigin.y+relativePos.y,z=dstOrigin.z+relativePos.z},false,true)
+end
+
+function checkForWell(pos)
+ return Physics.cast({origin=pos,direction={0,1,0},type=3,size={0.5,0.5,0.5},max_distance=0,orientation=self.GetRotation()})
+end
+
+wellLocs={{-0.1925,0.12,-0.4625},{0.71,0.12,0.9525},{0.25,0.12,0.9525},{-0.21,0.12,0.9525},{-0.67,0.12,0.9525},{-1.13,0.12,0.9525}}
+wellLocs8={{0.25,0.12,0.3025},{-0.21,0.12,0.3025},{-0.67,0.12,0.3025}}
+
+function deleteWells()
+ for c=1,#wellLocs do
+  deleteWell(wellLocs[c])
+ end
+ for c=1,#wellLocs8 do
+  deleteWell(wellLocs8[c])
+ end
+end
+
+function deleteWell(pos)
+ local zone=checkForWell(self.positionToWorld(pos))
+ for _,collision in pairs(zone) do
+  if collision.hit_object.getName()==wellData.Nickname and collision.hit_object.type=="Bag"then
+   collision.hit_object.destruct()
+  end
+ end
+end
+
+function createWells()
+ for c=1,#wellLocs do
+  createWell(wellLocs[c])
+ end
+ if bench8 then
+  for c=1,#wellLocs8 do
+   createWell(wellLocs8[c])
+  end
+ end
+end
+
+function createWell(pos)
+ local zone=checkForWell(self.positionToWorld(pos))
+ local hit=false
+ for _,collision in pairs(zone) do
+  if collision.hit_object.getName()==wellData.Nickname and collision.hit_object.type=="Bag"then hit=true end
+ end
+ if not hit then
+  local selfScale=self.getScale()
+  spawnObjectData({data=wellData,position=self.positionToWorld(pos),rotation=self.GetRotation(),scale={0.0145278450363*selfScale[1],0.05,0.0145278450363*selfScale[3]}})
+ end
 end
 
 function set6Prizes(obj,color,alt_click)
@@ -417,6 +511,20 @@ function setPrizes(color,number)
   end
   return
  end
+end
+
+function toggleBench()
+ if bench8 then
+  bench8=false
+  for c=1,#wellLocs8 do
+   deleteWell(wellLocs8[c])
+  end
+ else
+  bench8=true
+  createWells()
+ end
+ setUpBoard()
+ saveData()
 end
 
 WellLuaScript=[[--PTCG Energy Well,created by Lotus Assassin and edited by Pepper0ni
@@ -1046,6 +1154,3 @@ function onDestroy()
  end
 end
 ]]
-
-wellData={Name="Custom_Assetbundle_Bag",Nickname="Attach Well",Description="Place cards you attach to Pokemon here!",Locked=true,CustomAssetbundle={AssetbundleURL="http://chry.me/up/new_blackhole4.unity3d",AssetbundleSecondaryURL="",MaterialIndex=2,TypeIndex=6,LoopingEffectIndex=0},Bag={Order=0},LuaScript=WellLuaScript,
-}
