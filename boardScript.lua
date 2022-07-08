@@ -1,110 +1,110 @@
 local listOfImages={
- "1832410963637373669/0B2F27A66FDE7A24F59385C3B6907DC9FFF150AF/",
- "1832410963637373499/3FC7D688BE492981614454D3673B30B95C5BA88A/",
- "1832410963637373097/B9FAE997CC9128631702356374A3806D6B5F9DD7/",
- "1832410963637372969/35C706E956284140BB8BA3A830703A8D0F24786B/",
- "1832410963637372819/80FCED5BC4FA41D5AB92171D55F9A400DEC17C10/",
- "1832410963637372634/2B7B3441D9274102086A5A93230BD429E7A22012/",
- "1832410963637372412/C5E490485B2AA2E8427394744D5D370DD08440F8/",
- "1832410963637372208/EBB973EA63CE407AD358702AEADD883C6B8987AF/",
- "1832410963637371996/AF122B586BE6E2ABD4F859352F9E9EB233373144/",
- "1832410963637371778/4AF9148E963A16FC80B64ABE96CD32D71379CA4B/",
- "1832410963637371411/9877156C3AFC01D6644D1A14C38C1A3F261A4394/",
- "1832410963637370905/E145608EF8A6ADB8648B94F9473740BDDB5A4102/",
- "1832410963637370527/EE14E693352DC6D66400B66DFC312187A5238D6B/",
- "1832410963637370392/EA1D7ECE64FCCD1E7CA29C10E65631B2233CB5C6/",
- "1832410963637370181/ABDDD0072B7780AC49030ADF9D7A9975A11DDC9D/",
- "1832410963637370064/D79137AAEF75FB19500C35FB34D318E617D86EFA/",
- "1832410963637369946/664640343EA7073CCFDCD70EA675B67DDEB51723/",
- "1832410963637369830/663643B5D4F7DFEEF8C8683B63C719026CC81A78/",
- "1832410963637369683/25A3CFC4E0FBF212B0D966AFD581ED81B011EEA9/",
- "1832410963637369485/8BB95E04707DBA3398D938811A534DC9CD7DA810/",
- "1832410963637369061/FA68133FFFA397DBD15A75E13FBEEDDBE4FB8D88/",
- "1832410963637368938/9D32B63FDCCCB7C92EB5214E18DB6BD2DF567766/",
- "1832410963637368822/103F1032663F585B785F6E0645F190CE8C7C7710/",
- "1832410963637368665/7BB68794A8DBEA27DFE5D635F09797ADBFB9EE42/",
- "1832410963637368479/569FA0EF90C3B36500ECAE5F2A9FD083271B6101/",
- "1832410963637368321/2390A07D61355EFB14B733D11AB06A7D69BDC94F/",
- "1832410963637368135/81D0ED9FE44F74F567AD9DB925E3C35CABECC81A/",
- "1832410963637367953/0555B7920871609A60F8059251EA744D4A336DEA/",
- "1832410963637367701/8F7BB0F4BB8CF5DE169D880FA8AFC6DFE6F03272/",
- "1832410963637367471/6C58E8941B1330253DE81759D697F3679CD668DD/",
- "1832410963637367290/8431D50F5FA578485B567607341240D94A4CDD62/",
- "1832410963637366886/6426374A7BEAE4D702AA6DB59F1197B1E97B413C/",
- "1832410963637367071/BA2AFC850479B3B44D8AEE02DD068E3EE87B600A/",
- "1832410963637366778/6B81016286912206A7BFAA182F9037174C86B3C2/",
- "1832410963637366587/B5062723706AB0CD23A7B426F9EB4568886D942E/",
- "1832410963637366380/6912651D056B2B94151F848D853251ED96EE7E82/",
- "1832410963637366064/75D914A03AB47DD3E9B54B7F0A7E49C0A255FE6A/",
- "1832410963637365896/D41D1423E72C543D991B5E58CCE129FA3AEFB2BF/",
- "1832410963637365723/99E82175633FCE5FCF8FA5C7482AEE7D973C8CFD/",
- "1832410963637365331/C5B3315FBA9A8A68A0C983668967C496DCCC7EC2/",
- "1832410963637365133/8CB4BF35A09D57E8BCEF4B12E92F9E7CA14E12FF/",
- "1832410963637364932/18EEBB1261A88B3AF2219B8F315142D68A83E842/",
- "1832410963637364764/535A9F9847B9C8706B598DC106397E6E3CB6101C/",
- "1832410963637364598/20388E672632F04A2F4F76D7A5D0BCE5777B6485/",
- "1832410963637364353/BA7A57C7735F69F4739EC0332E35162B75480C7C/",
- "1832410963637364142/7B47D3DD34E75518E2D22CBBFE34041751941FAB/",
- "1832410963637363996/A9F4F2E1C51C4437EE553BDEA8D1E497C87C5D71/",
- "1832410963637363824/B8FA2BEE47C89C0FD5295DD3A467629ADCC2D8A4/",
- "1832410963637363663/4B173E99BA296231FA665B50E1DB0383AB0E195C/",
- "1832410963637363513/F412C35316AB9D62C36D9B6CF59FF4AF4035D7F9/",
- "1832410963637363320/EBB3C1ECDAA4A4C5FCD86A84DDB3CE2FE1272EE4/",
- "1832410963637363137/1AE32616ADD9ED8D95522FF221FB695858FF817B/",
- "1832410963637362972/C0E817616907E9D3180E9D4AB321406F3A3DABB7/",
- "1832410963637362813/8837487DF034EBFF4555C62CE6B1732FBD8216F6/",
- "1832410963637361935/441899E0701F1165A199208EE28B1E22CF79BA70/",
- "1832410963637361416/D7B7912E6263FB4CF912E7BADF4B1A319BAB52AD/",
- "1832410963637362627/999187CDEA15BF6A4D2CF4280368D963F62B7E08/",
- "1832410963637361220/25B52F6C457AE588109F9BA29EE3B1EC1B6FB4A7/",
- "1832410963637361055/49F9C3BD65B87CE712CFE19B0FEAB86AC407A5DA/",
- "1832410963637360858/4170882C58572869CA686A6C9072B6C338E0C4CC/",
- "1832410963637360621/70A7F5D796AD6CC09C0676BEE2AC697811A96462/",
- "1832410963637360431/8003BAF3C7B531D9378A0B01A8B8F9376E29B51C/",
- "1832410963637360160/D78F622058E07575E512FBA264523DEEDE03EBA9/",
- "1832410963637359780/522020541B585FDD69E8B3CB6507D3E16312B1E0/",
- "1832410963637359601/7F9D94EC50BB60B401D75ECE4614E3BE62C20B2D/",
- "1832410963637359131/58DF244D3CA11F00BAFEB1EED56799F355AD93B6/",
- "1832410963637358932/077108AB2384E28E99E51E1564685BE8975BBA38/",
- "1832410963637358685/768F2DD4E3FD42909B3174EFDC7AA8BA12077741/",
- "1832410963637358503/9DB4646C14A491F9E664A488AE0BDB8B222C6E1B/",
- "1832410963637358200/E7CF598404376A077D7DC3F9F4F568132C2A2FE3/",
- "1832410963637358033/DD28C7E98DD255FA7C8617077D1EE4AD7AE2CCCD/",
- "1832410963637357872/D99879886B1A28A14851A05DB8EF971EB0F27F3A/",
- "1832410963637357741/23A2F240316E45AC90871ADEF2F899222A82892B/",
- "1832410963637357559/43610969F9E99810D0FB8DCF9C9608E2972AC2D0/",
- "1832410963637357355/27E41FF414C3EE13291DC31CB7B5B5DEBD78B32C/",
- "1832410963637357134/240F9C518670D39422E78B64FA663ECE60A36756/",
- "1832410963637356873/21C4F2CF5DB0ADFF8C4FC47EA811C50C08D470E5/",
- "1832410963637356662/E9C5D5E75AE227056C9B62754CAEAC7EDCC706BB/",
- "1832410963637356469/5DD6CAD1674882ACC5DE12BEBF0C991404ABC1B7/",
- "1832410963637356320/007FF608D4C25145487591CBD87E8A3F0C218E57/",
- "1832410963637356084/FAC92C0E63532A8EC9867B724546E3EC03CB1D40/",
- "1832410963637355947/CB8EED7E8705109CDF2241F0433D7F2B44E31D81/",
- "1832410963637355776/D76065C40731F3D04DAA63484C778A728F885F71/",
- "1832410963637355620/9D7FF70CA91E590671DB8AEB232D3A4F46E67A62/",
- "1832410963637355428/62DC5882D814F84EB66699D554C3644737DD210F/",
- "1832410963637355066/02CDD7E71483466C3817E0F1AA22636B5B83C4BB/",
- "1832410963637354966/25EA470516222E80020379E0C72F1BA2AA29F9FC/",
- "1832410963637375275/10BA2533EF12BD905DE95D371F1B4901C8C9E175/",
- "1832410963637354772/3EEB3F044EF9E40F5BDAA69DE99CEB331A4BB7FC/",
- "1832410963637354667/5F5BCFAD8A5103B3D51942F3B226ED85A73476A9/",
- "1832410963637354544/F7C2EAD65F70DA92BDFF70181288572C52837164/",
- "1832410963637375465/9CC4C2BF2793AF72101210712D503DA7DF4A9C7A/",
- "1832410963637375658/344CF7E8640F8BB02CB2F3473927D5A4F2FDDF65/",
- "1832410963637375875/BE5AB5E79A02A9C923EFA89C0A38E867931094CD/",
- "1832410963637376342/3501225F4B6A675F4D70589BF55C137AC7323BFA/",
- "1832410963637376522/B69E91DDD37ECBC6FB79F4EFC1D87F5E9B93A9C8/",
- "1832410963637376708/3EA7C7D33E49FAC5C607E888B3CB756B67DE9E72/",
- "1832410963637376905/D320B8BB7ACB28412AD59417272419BEDEBD4BA2/",
- "1832410963637373851/E19EA4587163ABD02ABED8CDAF945B0637A122C8/",
- "1832410963637373999/752ED8BE5B744C5350FDFE8A745949BBC644B50F/",
- "1832410963637374145/59DA99B2271D96EAA79D85D9E0CFA3AECD28C6D2/",
- "1832410963637374300/1E324B980B701B3413E2CA62980BECC5F808AFBB/",
- "1832410963637374476/C7D8200EB2B232B3E80C1ECA5CD33531A31C2CA4/",
- "1832410963637374644/7D2297FF65A2B7D62A762CEBCB46B1030E66013F/",
- "1832410963637374813/3C65934A0588ECA168522E34EBF36AD6B74F677B/",
- "1832410963637375038/DB265CF5C6EC0C231D023252CE0AF0FFCF7F1BE6/"
+ "1847054888066180821/BC6BEA4B10B2A0BDF8814015C6E2D709B27DE59D",
+ "1847054888066181074/57619A0B0FDD2E622D5E1468D89EC6E50851C5F3",
+ "1847054888066181301/30B30215BCC51F4A3934374D8C7BB0E5EAED5A73",
+ "1847054888066181504/CA57981D5CC32FC91211C94AEAB3048CA9BE2D78",
+ "1847054888066181721/B388189CD368B3F0EEB580FFB11A6831FF25C38E",
+ "1847054888066181966/9D9B0B122496A289538C821824DF0349265C00D1",
+ "1847054888066182259/3057BFC9B9AE81DFB032D16D92E18CF6C5675374",
+ "1847054888066182476/04324D6EE02F9278DC0DF2598E79F9B5D0C3B148",
+ "1847054888066182687/81E0E4ED8D72584723990C3FDB941A0EA9F225E2",
+ "1847054888066182925/0F8715505635E0676EB39D560B34830C654066B0",
+ "1847054888066183904/CE3D1F0B1228FCF811DB39468338CE10320F1F3F",
+ "1847054888066184131/28B793B3DCE733CEE11E22344F745E13CE9ACDC4",
+ "1847054888066184328/F2DFF2536C3253AC452ABA246986FE9439AEB72E",
+ "1847054888066184545/EABC3F7BE6DA153D5FCEFBCA833485C9F25DE0DB",
+ "1847054888066184819/6C5AAC09F99677BC37B7BDA5B2B2A7AE0608E407",
+ "1847054888066186056/9E31C0BBD2B6EE30134C2443BBFE665DB7368FBD",
+ "1847054888066186280/014EBB0B1A2D1374CCF1BF90BCDBF3C06E92BB74",
+ "1847054888066187105/CD93838DF73895D9A4E8D93C0E977873CAE8B861",
+ "1847054888066187377/F659169C95B374F8159542D5F0394C1613568905",
+ "1847054888066187636/19DE0911B62E156805A3D1CAFA26F4D50E1D8A35",
+ "1847054888066187894/9C90D85377EA3D7B9174520FC55C70E92BA9CF46",
+ "1847054888066188176/27D707C71C6DE48D3B83CCFA5C6555D7943F82B2",
+ "1847054888066188427/98442F228CCB059FC11C5551EB86E83F79B20FFB",
+ "1847054888066188663/54B0FE3A7FE1ADB0E6A0C5B4F2EEAE22443E51A8",
+ "1847054888066188823/739EB4AAFEA0A547E367ADFBA077FD579488F559",
+ "1847054888066189026/71C12DD507330DE1314C309DC1A18F9AD9B9F01E",
+ "1847054888066189262/DE5892F528554C3C62BEA016871F39CF87D54B5F",
+ "1847054888066189501/12335FC6C76F2F102B092788B785F15CE7EA092C",
+ "1847054888066189738/679987F97D76662882CC342EEF949AC123F06807",
+ "1847054888066189983/2373DDA006BBD14A8CB5E1DA9857178DCCCBAF2D",
+ "1847054888066190228/196F114F9A9F839CE32B1CE319A4DAD3DFE7892C",
+ "1847054888066190496/D9E72F4023091300D4D1072CD8CD0912CD83C7F7",
+ "1847054888066190731/1ECD00F350C9C46167FD5E900B312475334B86FE",
+ "1847054888066190971/F1C47CCBFB0BC0E0126F09F2B6B3BF06BFC1A9EC",
+ "1847054888066191200/6CEEF2D46005985D90CD4B0B80CC93603D681238",
+ "1847054888066191498/08CD7F84B9F0A18597FBABBAADD3AD1AE605CE5B",
+ "1847054888066191723/744AE156782E82EF07612F00AE93BFBB9495475B",
+ "1847054888066929317/002CA51857AEB386F38BBC667576EE387256B6B7",
+ "1847054888066192199/0F35EE333C993F908843AAECEE38F3088A2DCAFC",
+ "1847054888066223701/B8D287EDE36515DE81730E3D5BFFD9A12ED35882",
+ "1847054888066193480/78F92FC65E007AE20A155CD47B718E7056CFA997",
+ "1847054888066194439/23105EAC103082D016F0A151F5B53407E884CF98",
+ "1847054888066194661/EE15BC613207FD279D124341FB2C5CA29E765AF0",
+ "1847054888066194894/9EE2B25541685085BBBD78659FE08BFACCF436BE",
+ "1847054888066196080/5D94ADE4B6DFC7CF946811EB12B12C902B11801A",
+ "1847054888066196356/B0A4AB4BBFA77CD711C96A69AF89608ACCA95322",
+ "1847054888066196599/345111CD5A7CCFA19FE834F1B88D0873E25C1A20",
+ "1847054888066196848/43534EC33C07065FBF8DDC03F48ECFB417477A33",
+ "1847054888066197028/A9744C131382B2648F373C55B5C12719517ED83C",
+ "1847054888066197278/12EC098ABC5E19655EC8B583AACD832CEAFB2AFF",
+ "1847054888066198281/E43FE12F7F6B8C55147F5AA1FA37B03990730370",
+ "1847054888066198606/CF44C1545CDD5C1E2FA78177A9A4D4F6FB2E4CCC",
+ "1847054888066198857/EC18B6211C884430B522D725EF786CF315CD1277",
+ "1847054888066199028/69A138911C66FE188C3DD0169B8484107DDF69B2",
+ "1847054888066199776/D3018668F8001244407E1DD6CBD8E4A91F3ADCBE",
+ "1847054888066200015/1F8115CBEBE9E531FF1D818CB9E2E1B913805AE6",
+ "1847054888066200958/C618A8BF395DD349157A5721E0033B619A91248A",
+ "1847054888066202303/573639C2A26BABA9418593D99D1E44F6CFBDEFD8",
+ "1847054888066202672/C9E45F870A1283DB2E69B3C5E9FC141A557DEA67",
+ "1847054888066203764/760FD35F8CDA41C7984DB3B6E8F8542D5A86CA70",
+ "1847054888066204018/834F75B77E1942543D561820EADADDCDEE1EDEF1",
+ "1847054888066204263/CFC1A714CEA7101F3796A7A649096717C6B8261F",
+ "1847054888066204482/41B76D245EEF938F58AA1E4B6B7CDE9AA95EC5CA",
+ "1847054888066204776/65285705943E2D5AD5A69E69F621E8EDCE6F9495",
+ "1847054888066205071/AF384B5318321F5B10A1776E7E425D60ECCD7380",
+ "1847054888066205309/7F15F69474D6DC8B49F4170E6800952E2DC3B22D",
+ "1847054888066206375/5CE662BF64FC2A38525E2B07611440C93030E4AE",
+ "1847054888066206639/B6FE11824C62DC138AA27362C8676F09276D45FD",
+ "1847054888066206831/29E9584961FFC0863BCAB5086D05CF221D3B2100",
+ "1847054888066207051/E0E11BE952165A5755FBB6E9DD23923F72DBEB8E",
+ "1847054888066207252/CA58982DFF3D47744A84E25D1ED0A3D646556689",
+ "1847054888066208220/F03491FC1E3A40785BA39036243AD6CF9CEFD87D",
+ "1847054888066208431/C0D8BEA7217EC4A34267BD04F501FB358846D472",
+ "1847054888066208592/131A55FD0BFACAF72FD540E208C1B6703BF8EFDD",
+ "1847054888066208794/49F372F83109CA69D8AAE96EC116247E828626C6",
+ "1847054888066208992/DF15E68DACE34FCC321A4BE37427B9A42969EC0B",
+ "1847054888066209215/411BEAB5B643545C825D1E4C082617DE0E3590AF",
+ "1847054888066209468/183B663CCBC8047B20676FA137380C0800A9B603",
+ "1847054888066209668/B49591FA98CB487E4CEEF7D176AB91E89779039B",
+ "1847054888066209921/405479D789E92E37718FFF8CC010761E96691551",
+ "1847054888066210163/4AAFC755FF00C13B94DF7AAFD0758F770CC0FCCE",
+ "1847054888066210412/401C1BB8E0AAD6002E6655E56E9BCFB670EDC2CD",
+ "1847054888066211121/26644A25E78429C8DAC75B4EF08CD9E25E6B157A",
+ "1847054888066211416/186A7B1F59BEFE086B6EF3D35F3BB9F7CCDA7B56",
+ "1847054888066212420/0ABFD709F10BAF6DC38A184B88307EA5D79D2123",
+ "1847054888066212625/107C92122D22A2BAC191AED0B0B6C1A9857D43CA",
+ "1847054888066212825/9B113DCF3934626ED7C9A28DDC6DB41310F2530B",
+ "1847054888066212961/C4EF71BC3A5BFF80229FC0EDD99E2484C6EAC7FA",
+ "1847054888066213164/A2D2847D76AC32444C56ED222A74D72C20B7FE6D",
+ "1847054888066213379/D17128052AFD9916C2605309B50DD480096511A2",
+ "1847054888066213597/C8853B5253FD7C142E4FB7C73FCAA03CF5494FCA",
+ "1847054888066213805/5D097CEFD4CA97CEA711F6C65972D259DEADE985",
+ "1847054888066214018/2597CB0DCB012A21A2E40CB97006C294C8F9AB48",
+ "1847054888066214244/1D47D09C168660EF7B6352994E1191F8A51439AA",
+ "1847054888066214481/515E1D55CEFB95B34C01156711636C1AA7BE8A52",
+ "1847054888066214694/E109B4F38DE484500946782D55D97FF9895BFDF5",
+ "1847054888066215012/B089B08E21DBC0E698CC979FD2129BA083D42BB8",
+ "1847054888066215340/713428E48F811A1E9D969EC5F02E25E2B9CF1395",
+ "1847054888066216590/89902E269224D1F0036A02CE7477A2D5FDFD8277",
+ "1847054888066216838/F21CE2DD1C872B5AB0CED92AD28443CFFB4A0407",
+ "1847054888066217152/2F69FE439ED989F0530E1AB6174E6BEFE5274960",
+ "1847054888066217474/094D964D7C43E6AFC47BD3A93FBA5C516751DECC",
+ "1847054888066218584/A43C2F0BF7F7E6F988B63EE34FCC32B80269ECAD",
+ "1847054888066218905/9C2ED16984838C2594476411EB375F0E254DE9DB",
+ "1847054888066219182/C935543577F47E0074126D14304EE50744AF1B92",
+ "1847054888066219478/656944C02E8A224FAED0CD541FDB18B49FFF413B"
 }
 
 lastButtonPress=os.time()
@@ -206,108 +206,58 @@ function setUpBoard()
  self.clearButtons()
  local snaps={}
  if bench8 then
-  for c=1,#snaps5 do
-   snaps[#snaps+1]=snaps5[c]
-  end
-  for c=1,#snaps8 do
-   snaps[#snaps+1]=snaps8[c]
-  end
+  for c=1,#snaps5 do snaps[#snaps+1]=snaps5[c]end
+  for c=1,#snaps8 do snaps[#snaps+1]=snaps8[c]end
  else
   snaps=snaps5
  end
  self.setSnapPoints(snaps)
  local selfScale=self.getScale()
  local params={function_owner=self,
- label='Switch',
- tooltip='Switch Bench with Battle Field',
  font_size=200,
  color={0,0,0.5},
  font_color={1,1,1},
  width=1250,
  height=250,
  scale={1/selfScale.x,1/selfScale.y,1/selfScale.z},
- position={0,0.1,0.4},
  rotation={0,0,0},
  }
  local offset=0.025
  local spaceBetween=0.46
  for c=1,5 do
-  params.position[1]=(c-3)*spaceBetween+offset
-  params.click_function='clickSwitch'..tostring(c)
-  self.createButton(params)
- end
- if bench8 then
-  params.position[3]=-0.25
-  for c=6,8 do
-   params.position[1]=(c-7)*spaceBetween+offset
-   params.click_function='clickSwitch'..tostring(c)
-   self.createButton(params)
-  end
+  butWrapper(params,{(c-3)*spaceBetween+offset,0.1,0.4},'Switch','Switch Benched Mon with the Active','clickSwitch'..tostring(c))
  end
 
- params.position={-1.4,0.1,0.7}
- params.click_function='set6Prizes'
- params.label='Setup 6 Prizes'
- params.tooltip='Take 6 prizes from your Deck'
- self.createButton(params)
-
- params.position[3]=0.8
- params.click_function='set4Prizes'
- params.label='Setup 4 Prizes'
- params.tooltip='Take 4 prizes from your Deck'
- self.createButton(params)
-
- params.position[1]=1.4
- params.click_function='toggleBench'
  if bench8 then
-  params.label='Normal Bench'
-  params.tooltip='Switch to a 5 mon bench'
+  for c=6,8 do butWrapper(params,{(c-7)*spaceBetween+offset,0.1,-0.25},'Switch','Switch Benched Mon with the Active','clickSwitch'..tostring(c))end
+  butWrapper(params,{1.4,0.1,0.8},'Normal Bench','Return the bench to Normal',"toggleBench")
  else
-  params.label='Large Bench'
-  params.tooltip='Switch to an 8 mon bench'
+  butWrapper(params,{1.4,0.1,0.8},'Large Bench','Expand the bench to hold 8 Mons',"toggleBench")
  end
- self.createButton(params)
+ butWrapper(params,{-1.4,0.1,0.7},'Setup 6 Prizes','Take 6 prizes from your Deck',"set6Prizes")
+ butWrapper(params,{-1.4,0.1,0.775},'Setup 4 Prizes','Take 4 prizes from your Deck',"set4Prizes")
+ butWrapper(params,{-1.4,0.1,0.85},'Setup 3 Prizes','Take 3 prizes from your Deck',"set3Prizes")
 
- params.label='Cut\nTop\nX'
- params.tooltip='Cut the top X cards of the deck and places them aside, as Cutting the top of a face-Down deck is awkward in TTS otherwise. What you think cuts from the top actually cuts from the bottom.\nX is set by the number below.'
- params.position={1.63,0.1,-0.12}
  params.height=640
  params.width=450
- params.click_function="cutTopDeck"
- self.createButton(params)
-
- params.label='Cut\nBot.\nX'
- params.tooltip='Cut the bottom X cards of the deck and places them aside\nX is set by the number below.'
- params.position[3]=0.22
- params.click_function="cutBottomDeck"
- self.createButton(params)
-
- params.label='+'
- params.tooltip='Increase Cut Amount'
+ butWrapper(params,{1.63,0.1,-0.12},'Cut\nTop\nX','Cut the top X cards of the deck and places them aside, as Cutting the top of a face-down deck is awkward in TTS otherwise. What you think cuts from the top actually cuts from the bottom.\nX is set by the number below.',"cutTopDeck")
+ butWrapper(params,{1.63,0.1,0.22},'Cut\nBot.\nX','Cut the bottom X cards of the deck and places them aside\nX is set by the number below.',"cutBottomDeck")
  params.height=250
  params.color={0,0.5,0}
- params.position[3]=0.01
- params.click_function="incCut"
- self.createButton(params)
-
- params.label='-'
+ butWrapper(params,{1.63,0.1,0.01},'+','Increase Cut Amount',"incCut")
  params.color={1,0,0}
- params.tooltip='Decrease Cut Amount'
- params.position[3]=0.09
- params.click_function="decCut"
- self.createButton(params)
-
- params.tooltip='Previous Board Art'
+ butWrapper(params,{1.63,0.1,0.09},'-','Decrease Cut Amount',"decCut")
  params.width=200
- params.position={-1.69,0.1,-0.97}
- params.click_function="previousArt"
- self.createButton(params)
-
- params.label='+'
+ butWrapper(params,{-1.69,0.1,-0.97},'-','Previous Board Art',"previousArt")
  params.color={0,0.5,0}
- params.tooltip='Next Board Art'
- params.position[1]=-1.57
- params.click_function="nextArt"
+ butWrapper(params,{-1.57,0.1,-0.97},'+','Next Board Art',"nextArt")
+end
+
+function butWrapper(params,pos,label,tool,func)
+ params.position=pos
+ params.label=label
+ params.tooltip=tool
+ params.click_function=func
  self.createButton(params)
 end
 
@@ -402,14 +352,15 @@ function cutBottomDeck(obj,color)
 end
 
 function getDeck(color)
- local zone=Physics.cast({origin=self.positionToWorld({-1.41,0.6,0.03}),direction={0,1,0},type=3,size={2.5,1,4},max_distance=0,orientation=self.GetRotation()})
- for _,collision in pairs(zone) do
-  hit=collision.hit_object
-  if hit.type=="Deck"then
-   return hit
-  end
+ local zone=castWrap(self.positionToWorld({-1.41,0.6,0.03}),{2.5,1,4})
+ for _,col in pairs(zone) do
+  if col.hit_object.type=="Deck"then return col.hit_object end
  end
  broadcastToColor("Deck doesn't exist.",color,{1,0,0})
+end
+
+function castWrap(origin,size)
+ return Physics.cast({origin=origin,direction={0,1,0},type=3,size=size,max_distance=0,orientation=self.GetRotation()})
 end
 
 function changeArt()
@@ -419,7 +370,7 @@ function changeArt()
 end
 
 function getSteamUrl(url)
- return "http://cloud-3.steamusercontent.com/ugc/"..url
+ return"http://cloud-3.steamusercontent.com/ugc/"..url.."/"
 end
 
 function saveData()
@@ -430,14 +381,10 @@ end
 function switch(pos1,pos2,color)
  if os.difftime(os.time(),lastButtonPress)<0.5 then broadcastToColor("You can't switch that fast.",color,{1,0,0})return end
  lastButtonPress=os.time()
- local zone1=Physics.cast({origin=pos1,direction={0,1,0},type=3,size={2.5,2,4},max_distance=0,orientation=self.GetRotation()})
- local zone2=Physics.cast({origin=pos2,direction={0,1,0},type=3,size={2.5,2,4},max_distance=0,orientation=self.GetRotation()})
- for _,collision in pairs(zone1) do
-  moveObject(collision.hit_object,pos1,pos2)
- end
- for _,collision in pairs(zone2) do
-  moveObject(collision.hit_object,pos2,pos1)
- end
+ local zone1=castWrap(pos1,{2.5,2,4})
+ local zone2=castWrap(pos2,{2.5,2,4})
+ for _,col in pairs(zone1) do moveObject(col.hit_object,pos1,pos2)end
+ for _,col in pairs(zone2) do moveObject(col.hit_object,pos2,pos1)end
  lastButtonPress=os.time()
 end
 
@@ -447,47 +394,33 @@ function moveObject(object,srcOrigin,dstOrigin)
  object.setPositionSmooth({x=dstOrigin.x+relativePos.x,y=dstOrigin.y+relativePos.y,z=dstOrigin.z+relativePos.z},false,true)
 end
 
-function checkForWell(pos)
- return Physics.cast({origin=pos,direction={0,1,0},type=3,size={0.5,0.5,0.5},max_distance=0,orientation=self.GetRotation()})
-end
-
 wellLocs={{-0.1925,0.12,-0.4625},{0.71,0.12,0.9525},{0.25,0.12,0.9525},{-0.21,0.12,0.9525},{-0.67,0.12,0.9525},{-1.13,0.12,0.9525}}
 wellLocs8={{0.25,0.12,0.3025},{-0.21,0.12,0.3025},{-0.67,0.12,0.3025}}
 
 function deleteWells()
- for c=1,#wellLocs do
-  deleteWell(wellLocs[c])
- end
- for c=1,#wellLocs8 do
-  deleteWell(wellLocs8[c])
- end
+ for c=1,#wellLocs do deleteWell(wellLocs[c])end
+ for c=1,#wellLocs8 do deleteWell(wellLocs8[c])end
 end
 
 function deleteWell(pos)
- local zone=checkForWell(self.positionToWorld(pos))
- for _,collision in pairs(zone) do
-  if collision.hit_object.getName()==wellData.Nickname and collision.hit_object.type=="Bag"then
-   collision.hit_object.destruct()
-  end
+ local zone=castWrap(self.positionToWorld(pos),{0.5,0.5,0.5})
+ for _,col in pairs(zone)do
+  if col.hit_object.getName()==wellData.Nickname and col.hit_object.type=="Bag"then col.hit_object.destruct()end
  end
 end
 
 function createWells()
- for c=1,#wellLocs do
-  createWell(wellLocs[c])
- end
+ for c=1,#wellLocs do createWell(wellLocs[c])end
  if bench8 then
-  for c=1,#wellLocs8 do
-   createWell(wellLocs8[c])
-  end
+  for c=1,#wellLocs8 do createWell(wellLocs8[c])end
  end
 end
 
 function createWell(pos)
- local zone=checkForWell(self.positionToWorld(pos))
+ local zone=castWrap(self.positionToWorld(pos),{0.5,0.5,0.5})
  local hit=false
- for _,collision in pairs(zone) do
-  if collision.hit_object.getName()==wellData.Nickname and collision.hit_object.type=="Bag"then hit=true end
+ for _,col in pairs(zone)do
+  if col.hit_object.getName()==wellData.Nickname and col.hit_object.type=="Bag"then hit=true end
  end
  if not hit then
   local selfScale=self.getScale()
@@ -503,12 +436,14 @@ function set4Prizes(obj,color,alt_click)
  setPrizes(color,4)
 end
 
+function set3Prizes(obj,color,alt_click)
+ setPrizes(color,3)
+end
+
 function setPrizes(color,number)
  deck=getDeck(color)
  if deck then
-  for c=0,number-1,1 do
-   deck.takeObject({position=self.positionToWorld({1.263+(0.274*(c%2)),1,-0.401+(math.floor(c/2)*0.431)})})
-  end
+  for c=0,number-1,1 do deck.takeObject({position=self.positionToWorld({1.263+(0.274*(c%2)),1,-0.401+(math.floor(c/2)*0.431)})})end
   return
  end
 end
@@ -516,9 +451,7 @@ end
 function toggleBench()
  if bench8 then
   bench8=false
-  for c=1,#wellLocs8 do
-   deleteWell(wellLocs8[c])
-  end
+  for c=1,#wellLocs8 do deleteWell(wellLocs8[c])end
  else
   bench8=true
   createWells()
@@ -641,8 +574,8 @@ energyUI={
  ["Special Darkness Energy"]="1832410242806473639/BC473132569AED6B8EDF08729EED547ED5FDB282",
 }
 energyUIFiltered={
- ["Electrode"]="1826780185923088169/8F47AC221D9AFD36BEDABB9D9354B01BB0E4F2D6",
- ["Charjabug"]="1826780185923088463/B2170F2F1A2EE7E8F54E3D01A44DAAEB471196B2"
+ Electrode="1826780185923088169/8F47AC221D9AFD36BEDABB9D9354B01BB0E4F2D6",
+ Charjabug="1826780185923088463/B2170F2F1A2EE7E8F54E3D01A44DAAEB471196B2"
 }
 toolUI={
  ["Defender"]="1829033806579851023/6F8CED874CEF9E58A88FE1C651EF3F7813209187",
@@ -875,14 +808,14 @@ toolUI={
  ["Supereffective Glasses"]="1827911076764611330/370E4D9AF0329DC2B9B04F4C3A79558BEF76728B",
 }
 toolUIFiltered={
- ["Klefki"]="1829034336112395603/B07DB6CF60F329FDAED655801B8A0700A9C5C529",
- ["Shedinja"]="1829034336112395899/09A0E7A3172D0FF0D2E8D5C66B4583FFB277D147"
+ Klefki="1829034336112395603/B07DB6CF60F329FDAED655801B8A0700A9C5C529",
+ Shedinja="1829034336112395899/09A0E7A3172D0FF0D2E8D5C66B4583FFB277D147"
 }
 setFilter={
- ["Electrode"]={"Base","Evolutions #40"},
- ["Klefki"]={"Steam Siege #80"},
- ["Shedinja"]={"Lost Thunder #95"},
- ["Charjabug"]={"Unbroken Bonds #58"},
+ Electrode={"Base","Evolutions #40"},
+ Klefki={"Steam Siege #80"},
+ Shedinja={"Lost Thunder #95"},
+ Charjabug={"Unbroken Bonds #58"},
 }
 specialFilter={
  ["Darkness Energy"]=true,
@@ -890,7 +823,7 @@ specialFilter={
 }
 
 function onLoad()
- Wait.condition(redrawUI,function()return self.type=="Bag" end)
+ Wait.condition(redrawUI,function()return self.type=="Bag"end)
 end
 
 deleting=false
@@ -900,9 +833,9 @@ end
 
 function tryObjectEnter(obj)
  if obj.type=='Card'and isAttachment(obj.getName(),obj.getDescription())then
-  Wait.frames(function()redrawUI()end,1)
-  Wait.frames(function()redrawUI()end,5)
-  Wait.frames(function()redrawUI()end,60)
+  Wait.frames(redrawUI,1)
+  Wait.frames(redrawUI,5)
+  Wait.frames(redrawUI,60)
   return true
  elseif obj.type=='Deck'then
   local takeObj=nil
@@ -919,9 +852,9 @@ function tryObjectEnter(obj)
     self.putObject(takeObj)
    end
   end
-  Wait.frames(function()redrawUI()end,1)
-  Wait.frames(function()redrawUI()end,5)
-  Wait.frames(function()redrawUI()end,60)
+  Wait.frames(redrawUI,1)
+  Wait.frames(redrawUI,5)
+  Wait.frames(redrawUI,60)
  end
  return false
 end
@@ -938,11 +871,7 @@ function countCardsInBag()
  for k,v in pairs(objs)do
   local name=v.name
   if energyUI[name]or energyUIFiltered[name] then
-   if startsWith(v.gm_notes,"8")then
-    if specialFilter[name] then
-     name="Special "..name
-    end
-   end
+   if startsWith(v.gm_notes,"8") and specialFilter[name]then name="Special "..name end
    energy[name]=(energy[name]or 0)+1
    totalEnergy=totalEnergy+1
   else
@@ -965,9 +894,7 @@ function redrawUI()
    e[#e+1]=getElementImage(k,600)
    e[#e+1]=getElementText(v)
   else
-   for i=1,v do
-    e[#e+1]=getElementImage(k,600)
-   end
+   for i=1,v do e[#e+1]=getElementImage(k,600)end
   end
  end
  local wide=false
@@ -985,7 +912,9 @@ function redrawUI()
 end
 
 function setXml(e,t,wide)
- XMLTable={{tag="HorizontalLayout",
+ XMLTable={{
+  tag="HorizontalLayout",
+  children=e,
   attributes={
    height=675,
    width=2800,
@@ -996,9 +925,7 @@ function setXml(e,t,wide)
    childForceExpandHeight=false,
    childAlignment="MiddleLeft",
    padding="35 330 35"
-  },
-  children=e
- }}
+  }}}
  if #e!=0 or #t!=0 then
   XMLTable[2]={
    tag="Image",
@@ -1025,7 +952,9 @@ function setXml(e,t,wide)
   local tHieght=540*#t+350
   local tWidth=0
   if wide then tWidth=230 end
-  XMLTable[#XMLTable+1]={tag="VerticalLayout",
+  XMLTable[#XMLTable+1]={
+   tag="VerticalLayout",
+   children=t,
    attributes={
     height=tHieght,
     width=675+tWidth,
@@ -1036,10 +965,8 @@ function setXml(e,t,wide)
     color="rgba(0,0,0,0.7)",
     padding="35 35 35 315",
     childAlignment="LowerLeft",
-   },
-  children=t
-  }
-  end
+  }}
+ end
  self.UI.setXmlTable(XMLTable)
 end
 
@@ -1051,8 +978,7 @@ function getElementText(num)
    fontSize=250,
    resizeTextMaxSize=250,
    text="*"..num,
-  },
- }
+ }}
 end
 
 function getElementImage(name,height)
@@ -1066,24 +992,24 @@ function getElementImage(name,height)
    restrictDraggingToParentBounds=false,
    onClick="clickCard("..name..")",
    onEndDrag="dragCard("..name..")",
-  }}
+ }}
 end
 
 function getToolFrame(c)
- return{tag="HorizontalLayout",
+ return{
+  tag="HorizontalLayout",
+  children=c,
   attributes={
    color="rgba(0,0,0,0)",
    childAlignment="LowerCenter",
-  },
-  children=c
- }
+ }}
 end
 
 function clickCard(player,n)
  objs=self.getObjects()
  for k,v in pairs(objs)do
   if v~=nil and checkCardName(v,n) then
-   self.takeObject({guid=v.guid,position=self.positionToWorld({13.15,0,16}),rotation=self.getRotation()})
+   removeCard(v.guid,self.positionToWorld({13.15,0,16}),self.getRotation())
    break
   end
  end
@@ -1095,7 +1021,7 @@ function dragCard(player,n)
   if v~=nil and checkCardName(v,n) then
    playpos=player.getPointerPosition()
    playpos.y=playpos.y+1
-   self.takeObject({guid=v.guid,position=playpos,rotation={0,player.getPointerRotation(),0},smooth=false})
+   removeCard(v.guid,playpos,{0,player.getPointerRotation(),0})
    break
   end
  end
@@ -1104,29 +1030,29 @@ end
 function clickAll(player)
  objs=self.getObjects()
  for k,v in pairs(objs)do
-  if v~=nil then
-   self.takeObject({guid=v.guid,position=self.positionToWorld({13.15,0,16}),rotation=self.getRotation()})
-  end
+  if v~=nil then removeCard(v.guid,self.positionToWorld({13.15,0,16}),self.getRotation())end
  end
 end
 
 function dragAll(player)
  objs=self.getObjects()
+ playpos=player.getPointerPosition()
+ playpos.y=playpos.y+1
  for k,v in pairs(objs)do
-  if v~=nil then
-   playpos=player.getPointerPosition()
-   playpos.y=playpos.y+1
-   self.takeObject({guid=v.guid,position=playpos,rotation={0,player.getPointerRotation(),0},smooth=false})
-  end
+  if v~=nil then removeCard(v.guid,playpos,{0,player.getPointerRotation(),0})end
  end
+end
+
+function removeCard(guid,pos,rot)
+ self.takeObject({guid=guid,position=pos,rotation=rot,smooth=false})
 end
 
 function checkCardName(card,name)
  if specialFilter[card.name]then
   if startsWith(name,"Special ")then
-   return(card.name==string.sub(name,9,#name) and string.sub(card.gm_notes,1,1)=="8")
+   return(card.name==string.sub(name,9,#name)and string.sub(card.gm_notes,1,1)=="8")
   else
-   return (card.name==string.sub(name,1,#name) and string.sub(card.gm_notes,1,1)=="7")
+   return (card.name==string.sub(name,1,#name)and string.sub(card.gm_notes,1,1)=="7")
   end
  else
   return card.name==name
@@ -1135,9 +1061,7 @@ end
 
 function startsWithInTable(input,prefix)
  for _,str in pairs(prefix)do
-  if startsWith(input,str) then
-   return true
-  end
+  if startsWith(input,str)then return true end
  end
  return false
 end
@@ -1149,7 +1073,6 @@ end
 function onDestroy()
  deleting=true
  local numCards=self.getQuantity()
- for c=numCards,1,-1 do
-  self.takeObject({index=0,position=self.positionToWorld{0,0,0}})
- end
-end]]
+ for c=numCards,1,-1 do self.takeObject({index=0,position=self.positionToWorld{0,0,0}})end
+end
+]]
