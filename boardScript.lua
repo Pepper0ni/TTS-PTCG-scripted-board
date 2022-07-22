@@ -164,11 +164,10 @@ function onLoad(state)
  if self.GetCustomObject().image!=getSteamUrl(listOfImages[curImage])then changeArt()end
  setUpBoard()
 
- local selfScale=self.getScale()
  local params={function_owner=self,
   input_function="updateArtToText",
   position={-1.63,0.1,-0.97},
-  scale={1/selfScale.x,1/selfScale.y,1/selfScale.z},
+  scale={1/8.26,1/8.26,1/8.26},
   width=400,
   height=223,
   font_size=200,
@@ -212,14 +211,13 @@ function setUpBoard()
   snaps=snaps5
  end
  self.setSnapPoints(snaps)
- local selfScale=self.getScale()
  local params={function_owner=self,
  font_size=200,
  color={0,0,0.5},
  font_color={1,1,1},
  width=1250,
  height=250,
- scale={1/selfScale.x,1/selfScale.y,1/selfScale.z},
+ scale={1/8.26,1/8.26,1/8.26},
  rotation={0,0,0},
  }
  local offset=0.025
@@ -275,7 +273,7 @@ end
 
 function updateArtToText(obj,color,value,selected)
  if not selected and value!=curImage then
-  newValue=checkIfNum(value,#listOfImages,curImage,color)
+  local newValue=checkIfNum(value,#listOfImages,curImage,color)
   if newValue!=curImage then
    curImage=newValue
    changeArt()
