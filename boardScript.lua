@@ -119,14 +119,14 @@ snaps5={
  {position={-0.02,-0.9,0.575}},--bench 3 BREAK
  {position={-0.48,-0.9,0.575}},--bench 4 BREAK
  {position={-0.94,-0.9,0.575}},--bench 5 BREAK
- {position={0.71,0.1,0.9525},rotation_snap=true},--bench 1 energy
- {position={0.25,0.1,0.9525},rotation_snap=true},--bench 2 energy
- {position={-0.21,0.1,0.9525},rotation_snap=true},--bench 3 energy
- {position={-0.67,0.1,0.9525},rotation_snap=true},--bench 4 energy
- {position={-1.13,0.1,0.9525},rotation_snap=true},--bench 5 energy
+ {position={1.1,0.1,0.9525},rotation_snap=true},--bench 1 energy
+ {position={0.64,0.1,0.9525},rotation_snap=true},--bench 2 energy
+ {position={0.18,0.1,0.9525},rotation_snap=true},--bench 3 energy
+ {position={-0.28,0.1,0.9525},rotation_snap=true},--bench 4 energy
+ {position={-0.74,0.1,0.9525},rotation_snap=true},--bench 5 energy
  {position={-0.0025,0.1,-0.715}},--active card
  {position={-0.0025,-0.9,-0.84}},--active BREAK
- {position={-0.1925,0.1,-0.4625},rotation_snap=true},--active energy
+ {position={0.1975,0.1,-0.4625},rotation_snap=true},--active energy
  {position={1.537,0.1,-0.401}},--prize 1
  {position={1.263,0.1,-0.401}},--prize 2
  {position={1.537,0.1,0.03}},--prize 3
@@ -145,9 +145,9 @@ snaps8={
  {position={0.44,-0.9,-0.075}},--bench 6 BREAK
  {position={-0.02,-0.9,-0.075}},--bench 7 BREAK
  {position={-0.48,-0.9,-0.075}},--bench 8 BREAK
- {position={0.25,0.1,0.3025},rotation_snap=true},--bench 6 energy
- {position={-0.21,0.1,0.3025},rotation_snap=true},--bench 7 energy
- {position={-0.67,0.1,0.3025},rotation_snap=true},--bench 8 energy
+ {position={0.64,0.1,0.3025},rotation_snap=true},--bench 6 energy
+ {position={0.18,0.1,0.3025},rotation_snap=true},--bench 7 energy
+ {position={-0.28,0.1,0.3025},rotation_snap=true},--bench 8 energy
 }
 
 function onLoad(state)
@@ -186,7 +186,7 @@ function onLoad(state)
  params.value=tostring(curCut)
  self.createInput(params)
 
- wellData={Transform={posX=0,posY=0,posZ=0,rotX=0,rotY=0,rotZ=0,scaleX=0.01,scaleY=0.01,scaleZ=0.01},Name="Custom_Assetbundle_Bag",Nickname="Attach Well",Description="Place cards you attach to Pokemon here!",Locked=true,CustomAssetbundle={AssetbundleURL="http://chry.me/up/new_blackhole4.unity3d",AssetbundleSecondaryURL="",MaterialIndex=2,TypeIndex=6,LoopingEffectIndex=0},Bag={Order=0},LuaScript=WellLuaScript
+ wellData={Transform={posX=0,posY=0,posZ=0,rotX=0,rotY=0,rotZ=0,scaleX=0.01,scaleY=0.01,scaleZ=0.01},Name="Custom_Assetbundle_Bag",Nickname="Attach Well",Description="Place cards you attach to Pokemon here!",Locked=true,CustomAssetbundle={AssetbundleURL=getSteamUrl("1788515362268211451/0C434F47DB06FAFA3BAFD293A14D7B440CC1BE23"),AssetbundleSecondaryURL="",MaterialIndex=2,TypeIndex=6,LoopingEffectIndex=0},Bag={Order=0},LuaScript=WellLuaScript
 }
 
  self.addContextMenuItem("Delete Wells",function(player_color)deleteWells()end)
@@ -194,11 +194,15 @@ function onLoad(state)
  createWells()
 end
 
+_G["discard0"]=function()discard(self.positionToWorld({-0.0225,1.11,-0.715}),0)end
+
 for c=1,5 do
  _G["clickSwitch"..tostring(c)]=function(_,color)switch(self.positionToWorld({-0.0225,1.11,-0.715}),self.positionToWorld({1.34-(c*0.46),1.11,0.7}),color)end
+ _G["discard"..tostring(c)]=function()discard(self.positionToWorld({1.34-(c*0.46),1.11,0.7}),c)end
 end
 for c=6,8 do
  _G["clickSwitch"..tostring(c)]=function(_,color)switch(self.positionToWorld({-0.0225,1.11,-0.715}),self.positionToWorld({3.18-(c*0.46),1.11,0.05}),color)end
+ _G["discard"..tostring(c)]=function()discard(self.positionToWorld({3.18-(c*0.46),1.11,0.05}),c)end
 end
 
 function setUpBoard()
@@ -215,19 +219,35 @@ function setUpBoard()
  font_size=200,
  color={0,0,0.5},
  font_color={1,1,1},
- width=1250,
+ width=1500,
  height=250,
  scale={1/8.26,1/8.26,1/8.26},
  rotation={0,0,0},
  }
+ disParams={function_owner=self,
+ font_size=200,
+ color={0,0,0.5},
+ font_color={1,1,1},
+ width=340,
+ height=290,
+ scale={1/8.26,1/8.26,1/8.26},
+ rotation={0,0,0},
+ }
+
+butWrapper(disParams,{0.1775,0.1,-0.545},'⌦','Discard this Pokemon and all attached cards','discard0')
+
  local offset=0.025
  local spaceBetween=0.46
  for c=1,5 do
   butWrapper(params,{(c-3)*spaceBetween+offset,0.1,0.4},'Switch','Switch Benched Mon with the Active','clickSwitch'..tostring(c))
+  butWrapper(disParams,{(c-3)*spaceBetween+0.195,0.1,0.87},'⌦','Discard this Pokemon and all attached cards','discard'..tostring(c))
  end
 
  if bench8 then
-  for c=6,8 do butWrapper(params,{(c-7)*spaceBetween+offset,0.1,-0.25},'Switch','Switch Benched Mon with the Active','clickSwitch'..tostring(c))end
+  for c=6,8 do
+   butWrapper(params,{(c-7)*spaceBetween+offset,0.1,-0.25},'Switch','Switch Benched Mon with the Active','clickSwitch'..tostring(c))
+   butWrapper(disParams,{(c-7)*spaceBetween+0.195,0.1,0.22},'⌦','Discard this Pokemon and all attached cards','discard'..tostring(c))
+  end
   butWrapper(params,{1.4,0.1,0.8},'Normal Bench','Return the bench to Normal',"toggleBench")
  else
   butWrapper(params,{1.4,0.1,0.8},'Large Bench','Expand the bench to hold 8 Mons',"toggleBench")
@@ -235,6 +255,7 @@ function setUpBoard()
  butWrapper(params,{-1.4,0.1,0.7},'Setup 6 Prizes','Take 6 prizes from your Deck',"set6Prizes")
  butWrapper(params,{-1.4,0.1,0.775},'Setup 4 Prizes','Take 4 prizes from your Deck',"set4Prizes")
  butWrapper(params,{-1.4,0.1,0.85},'Setup 3 Prizes','Take 3 prizes from your Deck',"set3Prizes")
+ butWrapper(params,{1.4,0.1,0.725},'Reset','Reset the game by putting all cards into the deck.',"cleanUpPrompt")
 
  params.height=640
  params.width=450
@@ -379,8 +400,8 @@ end
 function switch(pos1,pos2,color)
  if os.difftime(os.time(),lastButtonPress)<0.5 then broadcastToColor("You can't switch that fast.",color,{1,0,0})return end
  lastButtonPress=os.time()
- local zone1=castWrap(pos1,{2.5,2,4})
- local zone2=castWrap(pos2,{2.5,2,4})
+ local zone1=castWrap(pos1,{2.9,2,4})
+ local zone2=castWrap(pos2,{2.9,2,4})
  for _,col in pairs(zone1) do moveObject(col.hit_object,pos1,pos2)end
  for _,col in pairs(zone2) do moveObject(col.hit_object,pos2,pos1)end
  lastButtonPress=os.time()
@@ -388,12 +409,12 @@ end
 
 function moveObject(object,srcOrigin,dstOrigin)
  objPos=object.getPosition()
- relativePos={x=objPos.x-srcOrigin.x,y=objPos.y-srcOrigin.y,z=objPos.z-srcOrigin.z}
- object.setPositionSmooth({x=dstOrigin.x+relativePos.x,y=dstOrigin.y+relativePos.y,z=dstOrigin.z+relativePos.z},false,true)
+ local relativePos={objPos[1]-srcOrigin[1],objPos[2]-srcOrigin[2],objPos[3]-srcOrigin[3]}
+ object.setPositionSmooth({x=dstOrigin[1]+relativePos[1],y=dstOrigin[2]+relativePos[2],z=dstOrigin[3]+relativePos[3]},false,true)
 end
 
-wellLocs={{-0.1925,0.12,-0.4625},{0.71,0.12,0.9525},{0.25,0.12,0.9525},{-0.21,0.12,0.9525},{-0.67,0.12,0.9525},{-1.13,0.12,0.9525}}
-wellLocs8={{0.25,0.12,0.3025},{-0.21,0.12,0.3025},{-0.67,0.12,0.3025}}
+wellLocs={{0.1975,0.12,-0.4625},{1.1,0.12,0.9525},{0.64,0.12,0.9525},{0.18,0.12,0.9525},{-0.28,0.12,0.9525},{-0.74,0.12,0.9525}}
+wellLocs8={{0.64,0.12,0.3025},{0.18,0.12,0.3025},{-0.28,0.12,0.3025}}
 
 function deleteWells()
  for c=1,#wellLocs do deleteWell(wellLocs[c])end
@@ -401,10 +422,16 @@ function deleteWells()
 end
 
 function deleteWell(pos)
+ local well=checkForWell(pos)
+ if well then well.destruct()end
+end
+
+function checkForWell(pos)
  local zone=castWrap(self.positionToWorld(pos),{0.5,0.5,0.5})
  for _,col in pairs(zone)do
-  if col.hit_object.getName()==wellData.Nickname and col.hit_object.type=="Bag"then col.hit_object.destruct()end
+  if col.hit_object.getName()==wellData.Nickname and col.hit_object.type=="Bag"then return col.hit_object end
  end
+ return false
 end
 
 function createWells()
@@ -415,12 +442,7 @@ function createWells()
 end
 
 function createWell(pos)
- local zone=castWrap(self.positionToWorld(pos),{0.5,0.5,0.5})
- local hit=false
- for _,col in pairs(zone)do
-  if col.hit_object.getName()==wellData.Nickname and col.hit_object.type=="Bag"then hit=true end
- end
- if not hit then
+ if not checkForWell(pos)then
   local selfScale=self.getScale()
   spawnObjectData({data=wellData,position=self.positionToWorld(pos),rotation=self.GetRotation(),scale={0.0145278450363*selfScale[1],0.05,0.0145278450363*selfScale[3]}})
  end
@@ -456,6 +478,51 @@ function toggleBench()
  end
  setUpBoard()
  saveData()
+end
+
+function discard(cardpos,wellId)
+ local selfRot=self.getRotation()
+ local disPos=self.positionToWorld({-1.41,2,0.463})
+ local wellPos={}
+ if wellId<6 then wellPos=wellLocs[wellId+1]else wellPos=wellLocs8[wellId-5]end
+ local well=checkForWell(wellPos)
+ if well then well.call("emptyWell",{disPos,selfRot})end
+ local zone1=castWrap(cardpos,{2.5,2,4})
+ for _,col in pairs(zone1) do
+  if col.hit_object.type=="Card"or col.hit_object.type=="Deck"then
+   col.hit_object.setPositionSmooth(disPos,false,false)
+   col.hit_object.setRotationSmooth(selfRot,false,true)
+  elseif col.hit_object.type=="Bag"and col.hit_object.getName()=="Multi-card brace"then
+   col.hit_object.call("deleteBrace",{disPos,selfRot})
+  end
+ end
+end
+
+function cleanUpPrompt(obj,color)
+log(Player)
+log(color)
+ Player[color].showConfirmDialog("Put all the cards into the deck? (it is not shuffled)",cleanUp)
+end
+
+function cleanUp()
+ local selfRot=self.getRotation()
+ selfRot.z=selfRot.z+180
+ local deckPos=self.positionToWorld({-1.41,2,0.03})
+ for c=0,8 do
+  local wellPos={}
+  if c<6 then wellPos=wellLocs[c+1]else wellPos=wellLocs8[c-5]end
+  local well=checkForWell(wellPos)
+  if well then well.call("emptyWell",{deckPos,selfRot})end
+ end
+ local zone1=castWrap(self.positionToWorld{0,0,0},{25,2,15})
+ for _,col in pairs(zone1) do
+  if col.hit_object.type=="Card"or col.hit_object.type=="Deck"then
+   col.hit_object.setPositionSmooth(deckPos,false,false)
+   col.hit_object.setRotationSmooth(selfRot,false,true)
+  elseif col.hit_object.type=="Bag"and col.hit_object.getName()=="Multi-card brace"then
+   col.hit_object.call("deleteBrace",{deckPos,selfRot})
+  end
+ end
 end
 
 WellLuaScript=[[--PTCG Energy Well,created by Lotus Assassin and edited by Pepper0ni
@@ -570,10 +637,13 @@ energyUI={
  ["Holon's Castform"]="1832406432242107778/A0DBAC1898F157597D8E67C4EF7EB1821D825050",
  ["Special Metal Energy"]="1832410242806473363/E1184183CB65B7B50356FF3E4255A0C192725C89",
  ["Special Darkness Energy"]="1832410242806473639/BC473132569AED6B8EDF08729EED547ED5FDB282",
+ ["Gift Energy"]="1762617631228395378/45361010C1F323A3A9BE03F63C09BF004A5CA36D",
 }
 energyUIFiltered={
- Electrode="1826780185923088169/8F47AC221D9AFD36BEDABB9D9354B01BB0E4F2D6",
- Charjabug="1826780185923088463/B2170F2F1A2EE7E8F54E3D01A44DAAEB471196B2"
+ ["Electrode~Base"]="1826780185923088169/8F47AC221D9AFD36BEDABB9D9354B01BB0E4F2D6",
+ ["Electrode~Evolutions"]="1826780185923088169/8F47AC221D9AFD36BEDABB9D9354B01BB0E4F2D6",
+ ["Electrode~Secret W"]="1762617631231973713/72F43C865FF719BD553DE2E3EE0A62DCE06DB062",
+ ["Charjabug~Unbroken B"]="1826780185923088463/B2170F2F1A2EE7E8F54E3D01A44DAAEB471196B2"
 }
 toolUI={
  ["Defender"]="1829033806579851023/6F8CED874CEF9E58A88FE1C651EF3F7813209187",
@@ -804,23 +874,22 @@ toolUI={
  ["Hunting Gloves"]="1829033806579849889/9F1DF9F8F287775FFDF3140A0AA477158F247D3A",
  ["Pot Helmet"]="1829033806579849235/A042E3CBB2A46961E60E8AA0051D0681CC7B2F8C",
  ["Supereffective Glasses"]="1827911076764611330/370E4D9AF0329DC2B9B04F4C3A79558BEF76728B",
+ ["Panic Mask"]="1762617631228401390/8F4ABA5474C3A339961B5B10EB633B87BFD7C57E",
+ ["Windup Arm"]="1762617631228400310/EA8E49134B7C621B3BC51C1B66C32010534649BB",
 }
 toolUIFiltered={
- Klefki="1829034336112395603/B07DB6CF60F329FDAED655801B8A0700A9C5C529",
- Shedinja="1829034336112395899/09A0E7A3172D0FF0D2E8D5C66B4583FFB277D147"
-}
-setFilter={
- Electrode={"Base","Evolutions #40"},
- Klefki={"Steam Siege #80"},
- Shedinja={"Lost Thunder #95"},
- Charjabug={"Unbroken Bonds #58"},
+ ["Klefki~Steam S"]="1829034336112395603/B07DB6CF60F329FDAED655801B8A0700A9C5C529",
+ ["Shedinja~Lost T"]="1829034336112395899/09A0E7A3172D0FF0D2E8D5C66B4583FFB277D147"
 }
 specialFilter={
  ["Darkness Energy"]=true,
  ["Metal Energy"]=true
 }
+faceDown=false
+buttonId=0
 
-function onLoad()
+function onLoad(state)
+ faceDown=state
  Wait.condition(redrawUI,function()return self.type=="Bag"end)
 end
 
@@ -831,9 +900,7 @@ end
 
 function tryObjectEnter(obj)
  if obj.type=='Card'and isAttachment(obj.getName(),obj.getDescription())then
-  Wait.frames(redrawUI,1)
-  Wait.frames(redrawUI,5)
-  Wait.frames(redrawUI,60)
+  refreshUI()
   return true
  elseif obj.type=='Deck'then
   local takeObj=nil
@@ -850,15 +917,54 @@ function tryObjectEnter(obj)
     self.putObject(takeObj)
    end
   end
-  Wait.frames(redrawUI,1)
-  Wait.frames(redrawUI,5)
-  Wait.frames(redrawUI,60)
+  refreshUI()
  end
  return false
 end
 
 function isAttachment(name,desc)
- return energyUI[name]or toolUI[name]or(setFilter[name]and startsWithInTable(desc,setFilter[name]))
+ return energyUI[name]or toolUI[name]or checkFilter(toolUIFiltered,name,desc)or checkFilter(energyUIFiltered,name,desc)
+end
+
+function refreshUI()
+ Wait.frames(redrawUI,1)
+ Wait.frames(redrawUI,5)
+ Wait.frames(redrawUI,60)
+end
+
+function redrawUI()
+ countCardsInBag()
+--are we condensing the energy (ie showing 2x text)
+ local assets={{name="All",url="http://cloud-3.steamusercontent.com/ugc/1795270222392841045/E8BCB5066D63AB397B4603965430872101672062/"}}
+ local e={}
+ local t={}
+ if faceDown then assets[2]={name="faceDown",url="http://cloud-3.steamusercontent.com/ugc/1762617631231973416/3DFCBC756723A9F7EF1B5AA69EE76D0B3960267F/"}end
+
+ for k,v in pairs(energy)do
+  if v>1 or faceDown~=k then assets[#assets+1]={name=k,url="http://cloud-3.steamusercontent.com/ugc/"..(energyUI[k]or energyUIFiltered[k]).."/"}end
+  if k==faceDown then
+   e[#e+1]=getElementImage(k,"faceDown",600)
+   v=v-1
+  end
+  if v>1 and totalEnergy>4 then
+   e[#e+1]=getElementImage(k,k,600)
+   e[#e+1]=getElementText(v)
+  else
+   for i=1,v do e[#e+1]=getElementImage(k,k,600)end
+  end
+ end
+ local wide=false
+ for k,v in pairs(tools)do
+  assets[#assets+1]={name=k,url="http://cloud-3.steamusercontent.com/ugc/"..(toolUI[k]or toolUIFiltered[k]).."/"}
+  if v>1 then
+   t[#t+1]=getToolFrame({getElementImage(k,k,540),getElementText(v)})
+   wide=true
+  else
+   t[#t+1]=getElementImage(k,k,540)
+  end
+ end
+ self.UI.setCustomAssets(assets)
+ Wait.time(function()setXml(e,t,wide)end,0.15)
 end
 
 function countCardsInBag()
@@ -867,8 +973,8 @@ function countCardsInBag()
  totalEnergy=0
  objs=self.getObjects()
  for k,v in pairs(objs)do
-  local name=v.name
-  if energyUI[name]or energyUIFiltered[name] then
+  local name=checkFilter(energyUIFiltered,v.name,v.description)or checkFilter(toolUIFiltered,v.name,v.description)or v.name
+  if energyUI[name]or energyUIFiltered[name]then
    if startsWith(v.gm_notes,"8") and specialFilter[name]then name="Special "..name end
    energy[name]=(energy[name]or 0)+1
    totalEnergy=totalEnergy+1
@@ -876,37 +982,6 @@ function countCardsInBag()
    tools[name]=(tools[name]or 0)+1
   end
  end
-end
-
-function redrawUI()
- countCardsInBag()
---are we condensing the energy (ie showing 2x text)
- local condensed=totalEnergy>4
- local assets={{name="All",url="http://cloud-3.steamusercontent.com/ugc/1832410674995875923/20F7BE0497D73F3D0B0ED3188F59165150DDF742/"}}
- local e={}
- local t={}
-
- for k,v in pairs(energy)do
-  assets[#assets+1]={name=k,url="http://cloud-3.steamusercontent.com/ugc/"..(energyUI[k]or energyUIFiltered[k]).."/"}
-  if v>1 and condensed then
-   e[#e+1]=getElementImage(k,600)
-   e[#e+1]=getElementText(v)
-  else
-   for i=1,v do e[#e+1]=getElementImage(k,600)end
-  end
- end
- local wide=false
- for k,v in pairs(tools)do
-  assets[#assets+1]={name=k,url="http://cloud-3.steamusercontent.com/ugc/"..(toolUI[k]or toolUIFiltered[k]).."/"}
-  if v>1 then
-   t[#t+1]=getToolFrame({getElementImage(k,540),getElementText(v)})
-   wide=true
-  else
-   t[#t+1]=getElementImage(k,540)
-  end
- end
- self.UI.setCustomAssets(assets)
- Wait.time(function()setXml(e,t,wide)end,0.15)
 end
 
 function setXml(e,t,wide)
@@ -917,12 +992,12 @@ function setXml(e,t,wide)
    height=675,
    width=2800,
    rotation="0 0 180",
-   position="1400 0 16",
+   position="-1400 0 16",
    color="rgba(0,0,0,0.7)",
    childForceExpandWidth=false,
    childForceExpandHeight=false,
    childAlignment="MiddleLeft",
-   padding="35 330 35"
+   padding="330 35 35"
   }}}
  if #e!=0 or #t!=0 then
   XMLTable[2]={
@@ -931,7 +1006,7 @@ function setXml(e,t,wide)
     image="All",
     height=250,
     width=500,
-    position="-5 450 0",
+    position="5 450 0",
     rotation="0 0 180",
     allowDragging=true,
     onClick="clickAll()",
@@ -942,7 +1017,7 @@ function setXml(e,t,wide)
    attributes={
     height=250,
     width=250,
-    position="-125 220 0",
+    position="125 220 0",
     color="#0d1a92"
    }}
  end
@@ -957,7 +1032,7 @@ function setXml(e,t,wide)
     height=tHieght,
     width=675+tWidth,
     rotation="0 0 180",
-    position=tostring(tWidth*-1/2).." "..tostring((tHieght/2)*-1).." 16",
+    position=tostring(tWidth/2).." "..tostring((tHieght/2)*-1).." 16",
     childForceExpandWidth=false,
     childForceExpandHeight=false,
     color="rgba(0,0,0,0.7)",
@@ -979,17 +1054,20 @@ function getElementText(num)
  }}
 end
 
-function getElementImage(name,height)
+function getElementImage(name,image,height)
+ buttonId=buttonId+1
  return{tag="Image",
   attributes={
+   id=tostring(buttonId),
    preferredHeight=height,
    preferredWidth=600,
-   image=name,
+   image=image,
    preserveAspect=true,
    allowDragging=true,
    restrictDraggingToParentBounds=false,
-   onClick="clickCard("..name..")",
-   onEndDrag="dragCard("..name..")",
+   onClick="clickCard()",
+   onEndDrag="dragCard()",
+   name=name
  }}
 end
 
@@ -1003,18 +1081,24 @@ function getToolFrame(c)
  }}
 end
 
-function clickCard(player,n)
- objs=self.getObjects()
- for k,v in pairs(objs)do
-  if v~=nil and checkCardName(v,n) then
-   removeCard(v.guid,self.positionToWorld({13.15,0,16}),self.getRotation())
-   break
+function clickCard(player,alt,id)
+ local n=self.UI.getAttribute(id,"name")
+ if alt=="-2" then
+  setFaceDown(n)
+ else
+  if self.UI.getAttribute(id,"image")=="faceDown"then faceDown=false end
+  objs=self.getObjects()
+  for k,v in pairs(objs)do
+   if v~=nil and checkCardName(v,n) then
+    removeCard(v.guid,self.positionToWorld({-13.15,0,16}),self.getRotation())
+    break
+   end
   end
  end
 end
 
-function dragCard(player,n)
- objs=self.getObjects()
+function dragCard(player,alt,id)
+ local n=self.UI.getAttribute(id,"name")
  for k,v in pairs(objs)do
   if v~=nil and checkCardName(v,n) then
    playpos=player.getPointerPosition()
@@ -1026,42 +1110,45 @@ function dragCard(player,n)
 end
 
 function clickAll(player)
- objs=self.getObjects()
- for k,v in pairs(objs)do
-  if v~=nil then removeCard(v.guid,self.positionToWorld({13.15,0,16}),self.getRotation())end
- end
+ emptyWell({self.positionToWorld({-13.15,0,16}),self.getRotation()})
 end
 
 function dragAll(player)
- objs=self.getObjects()
  playpos=player.getPointerPosition()
  playpos.y=playpos.y+1
+ emptyWell({playpos,{0,player.getPointerRotation(),0}})
+end
+
+function emptyWell(posRot)
+ local pos=posRot[1]
+ local rot=posRot[2]
+ objs=self.getObjects()
  for k,v in pairs(objs)do
-  if v~=nil then removeCard(v.guid,playpos,{0,player.getPointerRotation(),0})end
+  if v~=nil then removeCard(v.guid,pos,rot)end
  end
 end
 
 function removeCard(guid,pos,rot)
- self.takeObject({guid=guid,position=pos,rotation=rot,smooth=false})
+ self.takeObject({guid=guid,position=pos,rotation=rot,smooth=true})
 end
 
 function checkCardName(card,name)
+ local filNames={}
+ local count=1
+ for fName in string.gmatch(name,"[^~]+")do
+  filNames[count]=fName
+  count=count+1
+ end
  if specialFilter[card.name]then
-  if startsWith(name,"Special ")then
-   return(card.name==string.sub(name,9,#name)and string.sub(card.gm_notes,1,1)=="8")
+  if startsWith(filNames[1],"Special ")then
+   return(card.name==string.sub(filNames[1],9,#filNames[1])and string.sub(card.gm_notes,1,1)=="8")
   else
-   return (card.name==string.sub(name,1,#name)and string.sub(card.gm_notes,1,1)=="7")
+   return (card.name==string.sub(filNames[1],1,#filNames[1])and string.sub(card.gm_notes,1,1)=="7")
   end
  else
-  return card.name==name
+  if filNames[2]then return(card.name==filNames[1]and startsWith(card.description,filNames[2]))end
+  return card.name==filNames[1]
  end
-end
-
-function startsWithInTable(input,prefix)
- for _,str in pairs(prefix)do
-  if startsWith(input,str)then return true end
- end
- return false
 end
 
 function startsWith(input,prefix)
@@ -1072,5 +1159,22 @@ function onDestroy()
  deleting=true
  local numCards=self.getQuantity()
  for c=numCards,1,-1 do self.takeObject({index=0,position=self.positionToWorld{0,0,0}})end
+end
+
+function checkFilter(table,name,desc)
+ for target,link in pairs(table)do
+  if startsWith(name.."~"..desc,target)then return target end
+ end
+ return false
+end
+
+function setFaceDown(name)
+ if faceDown==name then
+  faceDown=false
+ else
+  faceDown=name
+ end
+ self.script_state=faceDown
+ refreshUI()
 end
 ]]
