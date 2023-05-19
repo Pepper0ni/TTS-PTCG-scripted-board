@@ -107,23 +107,9 @@ local listOfImages={
  "1847054888066219478/656944C02E8A224FAED0CD541FDB18B49FFF413B"
 }
 
+self.alt_view_angle={0,90,0}
 lastButtonPress=os.time()
-snaps5={
- {position={0.9,0.1,0.7}},--bench 1 card
- {position={0.44,0.1,0.7}},--bench 2 card
- {position={-0.02,0.1,0.7}},--bench 3 card
- {position={-0.48,0.1,0.7}},--bench 4 card
- {position={-0.94,0.1,0.7}},--bench 5 card
- {position={0.9,-0.9,0.575}},--bench 1 BREAK
- {position={0.44,-0.9,0.575}},--bench 2 BREAK
- {position={-0.02,-0.9,0.575}},--bench 3 BREAK
- {position={-0.48,-0.9,0.575}},--bench 4 BREAK
- {position={-0.94,-0.9,0.575}},--bench 5 BREAK
- {position={1.1,0.1,0.9525},rotation_snap=true},--bench 1 energy
- {position={0.64,0.1,0.9525},rotation_snap=true},--bench 2 energy
- {position={0.18,0.1,0.9525},rotation_snap=true},--bench 3 energy
- {position={-0.28,0.1,0.9525},rotation_snap=true},--bench 4 energy
- {position={-0.74,0.1,0.9525},rotation_snap=true},--bench 5 energy
+topSnaps={
  {position={-0.0025,0.1,-0.715}},--active card
  {position={-0.0025,-0.9,-0.84}},--active BREAK
  {position={0.1975,0.1,-0.4625},rotation_snap=true},--active energy
@@ -137,29 +123,52 @@ snaps5={
  {position={-1.41,0.1,0.463},rotation_snap=true},--discard
  {position={-1.41,0.1,-0.38}},--GX Coin
  {position={-1.36,0.1,-0.76}},--Stadium
+ {position={0.44,0.1,0.7}},--bench 2 card
+ {position={-0.02,0.1,0.7}},--bench 3 card
+ {position={-0.48,0.1,0.7}},--bench 4 card
+ {position={0.44,-0.9,0.575}},--bench 2 BREAK
+ {position={-0.02,-0.9,0.575}},--bench 3 BREAK
+ {position={-0.48,-0.9,0.575}},--bench 4 BREAK
+ {position={0.64,0.1,0.9525},rotation_snap=true},--bench 2 energy
+ {position={0.18,0.1,0.9525},rotation_snap=true},--bench 3 energy
+ {position={-0.28,0.1,0.9525},rotation_snap=true},--bench 4 energy
+ {position={0.9,0.1,0.7}},--bench 1 card
+ {position={-0.94,0.1,0.7}},--bench 5 card
+ {position={0.9,-0.9,0.575}},--bench 1 BREAK
+ {position={-0.94,-0.9,0.575}},--bench 5 BREAK
+ {position={1.1,0.1,0.9525},rotation_snap=true},--bench 1 energy
+ {position={-0.74,0.1,0.9525},rotation_snap=true},--bench 5 energy
 }
-snaps8={
+botSnaps={
+ {position={0.44,0.1,0.05}},--bench 7 card
+ {position={-0.02,0.1,0.05}},--bench 8 card
+ {position={-0.48,0.1,0.05}},--bench 9 card
+ {position={0.44,-0.9,-0.075}},--bench 7 BREAK
+ {position={-0.02,-0.9,-0.075}},--bench 8 BREAK
+ {position={-0.48,-0.9,-0.075}},--bench 9 BREAK
+ {position={0.64,0.1,0.3025},rotation_snap=true},--bench 7 energy
+ {position={0.18,0.1,0.3025},rotation_snap=true},--bench 8 energy
+ {position={-0.28,0.1,0.3025},rotation_snap=true},--bench 9 energy
  {position={0.44,0.1,0.05}},--bench 6 card
- {position={-0.02,0.1,0.05}},--bench 7 card
- {position={-0.48,0.1,0.05}},--bench 8 card
- {position={0.44,-0.9,-0.075}},--bench 6 BREAK
- {position={-0.02,-0.9,-0.075}},--bench 7 BREAK
- {position={-0.48,-0.9,-0.075}},--bench 8 BREAK
+ {position={-0.02,0.1,0.05}},--bench 0 card
+ {position={-0.02,-0.9,-0.075}},--bench 6 BREAK
+ {position={-0.48,-0.9,-0.075}},--bench 0 BREAK
  {position={0.64,0.1,0.3025},rotation_snap=true},--bench 6 energy
- {position={0.18,0.1,0.3025},rotation_snap=true},--bench 7 energy
- {position={-0.28,0.1,0.3025},rotation_snap=true},--bench 8 energy
+ {position={0.18,0.1,0.3025},rotation_snap=true},--bench 0 energy
 }
 
 function onLoad(state)
- if state!="" then
+ if state!=""then
   local save=json.parse(state)
   curImage=tonumber(save.curImage)
   curCut=save.curCut
   bench8=save.bench8
+  revbench=save.revbench
  else
   curImage=1
   curCut=7
   bench8=false
+  revbench=false
  end
  if self.GetCustomObject().image!=getSteamUrl(listOfImages[curImage])then changeArt()end
  setUpBoard()
@@ -189,8 +198,9 @@ function onLoad(state)
  wellData={Transform={posX=0,posY=0,posZ=0,rotX=0,rotY=0,rotZ=0,scaleX=0.01,scaleY=0.01,scaleZ=0.01},Name="Custom_Assetbundle_Bag",Nickname="Attach Well",Description="Place cards you attach to Pokemon here!",Locked=true,CustomAssetbundle={AssetbundleURL=getSteamUrl("1788515362268211451/0C434F47DB06FAFA3BAFD293A14D7B440CC1BE23"),AssetbundleSecondaryURL="",MaterialIndex=2,TypeIndex=6,LoopingEffectIndex=0},Bag={Order=0},LuaScript=WellLuaScript
 }
 
- self.addContextMenuItem("Delete Wells",function(player_color)deleteWells()end)
- self.addContextMenuItem("Respawn Wells",function(player_color)createWells()end)
+ self.addContextMenuItem("Reverse Bench",function()revBench()end)
+ self.addContextMenuItem("Delete Wells",function()deleteWells()end)
+ self.addContextMenuItem("Respawn Wells",function()createWells()end)
  createWells()
 end
 
@@ -200,20 +210,43 @@ for c=1,5 do
  _G["clickSwitch"..tostring(c)]=function(_,color)switch(self.positionToWorld({-0.0225,1.11,-0.715}),self.positionToWorld({1.34-(c*0.46),1.11,0.7}),color)end
  _G["discard"..tostring(c)]=function()discard(self.positionToWorld({1.34-(c*0.46),1.11,0.7}),c)end
 end
-for c=6,8 do
- _G["clickSwitch"..tostring(c)]=function(_,color)switch(self.positionToWorld({-0.0225,1.11,-0.715}),self.positionToWorld({3.18-(c*0.46),1.11,0.05}),color)end
- _G["discard"..tostring(c)]=function()discard(self.positionToWorld({3.18-(c*0.46),1.11,0.05}),c)end
+for c=6,10 do
+ _G["clickSwitch"..tostring(c)]=function(_,color)switch(self.positionToWorld({-0.0225,1.11,-0.715}),self.positionToWorld({3.64-(c*0.46),1.11,0.05}),color)end
+ _G["discard"..tostring(c)]=function()discard(self.positionToWorld({3.64-(c*0.46),1.11,0.05}),c)end
+end
+
+function makeZone(c,params,disParams)
+ local hori=(c-3)*0.46
+ local ver=0.4
+ if c>5 then
+  hori=(c-8)*0.46
+  ver=-0.25
+ end
+ butWrapper(params,{hori+0.025,0.1,ver},'Switch','Switch Benched Mon with the Active','clickSwitch'..tostring(c))
+ butWrapper(disParams,{hori+0.195,0.1,0.47+ver},'⌦','Discard this Pokemon and all attached cards','discard'..tostring(c))
 end
 
 function setUpBoard()
  self.clearButtons()
  local snaps={}
+ local topSnapCount=28
+ local botSnapCount=0
  if bench8 then
-  for c=1,#snaps5 do snaps[#snaps+1]=snaps5[c]end
-  for c=1,#snaps8 do snaps[#snaps+1]=snaps8[c]end
+  if revbench then
+   topSnapCount=22
+   botSnapCount=15
+  else
+   topSnapCount=28
+   botSnapCount=9
+  end
  else
-  snaps=snaps5
+  if revbench then
+   topSnapCount=13
+   botSnapCount=15
+  end
  end
+ for c=1,topSnapCount do snaps[#snaps+1]=topSnaps[c]end
+ for c=1,botSnapCount do snaps[#snaps+1]=botSnaps[c]end
  self.setSnapPoints(snaps)
  local params={function_owner=self,
  font_size=200,
@@ -234,24 +267,24 @@ function setUpBoard()
  rotation={0,0,0},
  }
 
-butWrapper(disParams,{0.1775,0.1,-0.545},'⌦','Discard this Pokemon and all attached cards','discard0')
+ butWrapper(disParams,{0.1775,0.1,-0.545},'⌦','Discard this Pokemon and all attached cards','discard0')
 
- local offset=0.025
- local spaceBetween=0.46
- for c=1,5 do
-  butWrapper(params,{(c-3)*spaceBetween+offset,0.1,0.4},'Switch','Switch Benched Mon with the Active','clickSwitch'..tostring(c))
-  butWrapper(disParams,{(c-3)*spaceBetween+0.195,0.1,0.87},'⌦','Discard this Pokemon and all attached cards','discard'..tostring(c))
+ if revbench then
+  for c=6,10 do makeZone(c,params,disParams)end
+ else
+  for c=1,5 do makeZone(c,params,disParams)end
  end
-
  if bench8 then
-  for c=6,8 do
-   butWrapper(params,{(c-7)*spaceBetween+offset,0.1,-0.25},'Switch','Switch Benched Mon with the Active','clickSwitch'..tostring(c))
-   butWrapper(disParams,{(c-7)*spaceBetween+0.195,0.1,0.22},'⌦','Discard this Pokemon and all attached cards','discard'..tostring(c))
+  if revbench then
+   for c=2,4 do makeZone(c,params,disParams)end
+  else
+   for c=7,9 do makeZone(c,params,disParams)end
   end
   butWrapper(params,{1.4,0.1,0.8},'Normal Bench','Return the bench to Normal',"toggleBench")
  else
   butWrapper(params,{1.4,0.1,0.8},'Large Bench','Expand the bench to hold 8 Mons',"toggleBench")
  end
+
  butWrapper(params,{-1.4,0.1,0.7},'Setup 6 Prizes','Take 6 prizes from your Deck',"set6Prizes")
  butWrapper(params,{-1.4,0.1,0.775},'Setup 4 Prizes','Take 4 prizes from your Deck',"set4Prizes")
  butWrapper(params,{-1.4,0.1,0.85},'Setup 3 Prizes','Take 3 prizes from your Deck',"set3Prizes")
@@ -393,7 +426,7 @@ function getSteamUrl(url)
 end
 
 function saveData()
- local save={curImage=curImage,curCut=curCut,bench8=bench8}
+ local save={curImage=curImage,curCut=curCut,bench8=bench8,revbench=revbench}
  self.script_state=json.serialize(save)
 end
 
@@ -413,12 +446,32 @@ function moveObject(object,srcOrigin,dstOrigin)
  object.setPositionSmooth({x=dstOrigin[1]+relativePos[1],y=dstOrigin[2]+relativePos[2],z=dstOrigin[3]+relativePos[3]},false,true)
 end
 
-wellLocs={{0.1975,0.12,-0.4625},{1.1,0.12,0.9525},{0.64,0.12,0.9525},{0.18,0.12,0.9525},{-0.28,0.12,0.9525},{-0.74,0.12,0.9525}}
-wellLocs8={{0.64,0.12,0.3025},{0.18,0.12,0.3025},{-0.28,0.12,0.3025}}
+wellLocAct={0.1975,0.12,-0.4625}
+wellLocsBot={{1.1,0.12,0.9525},{0.64,0.12,0.9525},{0.18,0.12,0.9525},{-0.28,0.12,0.9525},{-0.74,0.12,0.9525}}
+wellLocsTop={{1.1,0.12,0.3025},{0.64,0.12,0.3025},{0.18,0.12,0.3025},{-0.28,0.12,0.3025},{-0.74,0.12,0.3025},}
 
 function deleteWells()
- for c=1,#wellLocs do deleteWell(wellLocs[c])end
- for c=1,#wellLocs8 do deleteWell(wellLocs8[c])end
+ deleteWell(wellLocAct)
+ for c=1,5 do deleteWell(wellLocsBot[c])end
+ for c=1,5 do deleteWell(wellLocsTop[c])end
+end
+
+function pruneWells()
+ if bench8 then
+  if revbench then
+   deleteWell(wellLocsBot[1])
+   deleteWell(wellLocsBot[5])
+  else
+   deleteWell(wellLocsTop[1])
+   deleteWell(wellLocsTop[5])
+  end
+ else
+  if revbench then
+   for c=1,5 do deleteWell(wellLocsBot[c])end
+  else
+   for c=1,5 do deleteWell(wellLocsTop[c])end
+  end
+ end
 end
 
 function deleteWell(pos)
@@ -435,9 +488,18 @@ function checkForWell(pos)
 end
 
 function createWells()
- for c=1,#wellLocs do createWell(wellLocs[c])end
+ createWell(wellLocAct)
+ if revbench then
+  for c=1,5 do createWell(wellLocsTop[c])end
+ else
+  for c=1,5 do createWell(wellLocsBot[c])end
+ end
  if bench8 then
-  for c=1,#wellLocs8 do createWell(wellLocs8[c])end
+  if revbench then
+   for c=2,4 do createWell(wellLocsBot[c])end
+  else
+   for c=2,4 do createWell(wellLocsTop[c])end
+  end
  end
 end
 
@@ -469,24 +531,32 @@ function setPrizes(color,number)
 end
 
 function toggleBench()
- if bench8 then
-  bench8=false
-  for c=1,#wellLocs8 do deleteWell(wellLocs8[c])end
- else
-  bench8=true
-  createWells()
- end
+ if bench8 then bench8=false else bench8=true end
+ createWells()
+ pruneWells()
  setUpBoard()
  saveData()
+end
+
+function revBench()
+ if revbench then revbench=false else revbench=true end
+ createWells()
+ pruneWells()
+ setUpBoard()
+ saveData()
+end
+
+function emptyWell(wellId)
+ local wellPos={}
+ if wellId==0 then wellPos=wellLocAct elseif wellId<6 then wellPos=wellLocsBot[wellId]else wellPos=wellLocsTop[wellId-5]end
+ local well=checkForWell(wellPos)
+ if well then well.call("emptyWell",{disPos,selfRot})end
 end
 
 function discard(cardpos,wellId)
  local selfRot=self.getRotation()
  local disPos=self.positionToWorld({-1.41,2,0.463})
- local wellPos={}
- if wellId<6 then wellPos=wellLocs[wellId+1]else wellPos=wellLocs8[wellId-5]end
- local well=checkForWell(wellPos)
- if well then well.call("emptyWell",{disPos,selfRot})end
+ emptyWell(wellId)
  local zone1=castWrap(cardpos,{2.5,2,4})
  for _,col in pairs(zone1) do
   if col.hit_object.type=="Card"or col.hit_object.type=="Deck"then
@@ -499,8 +569,6 @@ function discard(cardpos,wellId)
 end
 
 function cleanUpPrompt(obj,color)
-log(Player)
-log(color)
  Player[color].showConfirmDialog("Put all the cards into the deck? (it is not shuffled)",cleanUp)
 end
 
@@ -508,11 +576,8 @@ function cleanUp()
  local selfRot=self.getRotation()
  selfRot.z=selfRot.z+180
  local deckPos=self.positionToWorld({-1.41,2,0.03})
- for c=0,8 do
-  local wellPos={}
-  if c<6 then wellPos=wellLocs[c+1]else wellPos=wellLocs8[c-5]end
-  local well=checkForWell(wellPos)
-  if well then well.call("emptyWell",{deckPos,selfRot})end
+ for c=0,10 do
+  emptyWell(c)
  end
  local zone1=castWrap(self.positionToWorld{0,0,0},{25,2,15})
  for _,col in pairs(zone1) do
@@ -641,6 +706,15 @@ energyUI={
  ["Gift Energy"]="1762617631228395378/45361010C1F323A3A9BE03F63C09BF004A5CA36D",
  ["Regenerative Energy"]="1933762067827987766/34E36920EB75C3773CE5FC5B9C5690E429B14C57",
  ["V Guard Energy"]="1933762067827988042/60F1B16B20335C623ECCBDCB12C0151E70A9CB2F",
+ ["Basic Darkness Energy"]="1030706086614178330/4BF95A690F7DA49C8FB1463B8E5F678703F7F45C",
+ ["Basic Fairy Energy"]="1030706086614178507/2BB4792D5BF0D974368EFDE432484ABBCDB33AA0",
+ ["Basic Fighting Energy"]="1030706086614178613/6211E80FA57B3462D3A78C725AE440B01D85F19B",
+ ["Basic Grass Energy"]="1030706086614178225/936511C7DE88071C0EFD164A0208E9A4F0790121",
+ ["Basic Fire Energy"]="1030706086614178732/FB70D14FE2A4CA823E53CA4B950D58C999D57E4A",
+ ["Basic Lightning Energy"]="1030706086614178847/5043B10E02EF709244486A5E2F037DFA5ABB5211",
+ ["Basic Metal Energy"]="1030706086614178951/97976CC1484C2344BF88BC4EDFCB5E4A74594199",
+ ["Basic Psychic Energy"]="1030706086614179070/5936733CF9AA0FEC120262A82643501F5D98BC01",
+ ["Basic Water Energy"]="1030706086614179173/A6197B243E1F67E908D76B837FC3EDCCCDD399EC",
 }
 energyUIFiltered={
  ["Electrode~Base"]="1826780185923088169/8F47AC221D9AFD36BEDABB9D9354B01BB0E4F2D6",
@@ -884,6 +958,8 @@ toolUI={
  ["Forest Seal Stone"]="1933762067827986040/A8696771C45A000140AF6B66D3044D9ED6AE5FBC",
  ["Leafy Camo Poncho"]="1933762067827985561/C2546AC7FC37B1CE65A1F2292A29F234C8195719",
  ["Sky Seal Stone"]="2012580224554736408/20BC10CBCC1320E79DCBDD539CF09EDACF3D5B48",
+ ["Defiant Band"]="2038482440041482523/AAF9A5015FECEB0F33C25522BC934B86D9F6EAD0",
+ ["Rock Chestplate"]="2038482440041483050/22C5E6CBC94CAFE6203FED9557EA9581EE55CEAC",
 }
 toolUIFiltered={
  ["Klefki~Steam S"]="1829034336112395603/B07DB6CF60F329FDAED655801B8A0700A9C5C529",
