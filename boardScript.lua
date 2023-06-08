@@ -412,7 +412,7 @@ function getDeck(color)
 end
 
 function castWrap(origin,size)
- return Physics.cast({origin=origin,direction={0,1,0},type=3,size=size,max_distance=0,orientation=self.GetRotation()})
+ return Physics.cast({origin=origin,direction={0,1,0},type=3,size=size,max_distance=0,orientation=self.GetRotation(),debug=true})
 end
 
 function changeArt()
@@ -546,17 +546,55 @@ function revBench()
  saveData()
 end
 
-function emptyWell(wellId)
+function emptyWell(wellId,pos,flarePosRot,flipped)
  local wellPos={}
+ local rot=self.getRotation()
+ if flipped then rot[3]=rot[3]+180 end
  if wellId==0 then wellPos=wellLocAct elseif wellId<6 then wellPos=wellLocsBot[wellId]else wellPos=wellLocsTop[wellId-5]end
  local well=checkForWell(wellPos)
- if well then well.call("emptyWell",{disPos,selfRot})end
+ if well then well.call("emptyWell",{pos,rot,flarePosRot[1],flarePosRot[2]})end
+end
+
+function getDisPos(obj)
+ return obj.positionToWorld({-1.41,2,0.463})
+end
+
+function getDeckPos(obj)
+ return obj.positionToWorld({-1.41,0.1,0.03})
+end
+
+function getOtherBoard()
+ local zone=castWrap(self.positionToWorld({0,0,-2}),{1,1,10})
+ for _,col in pairs(zone) do
+  if col.hit_object.type=="Tile"and col.hit_object.getName()==self.getName()then
+  return col.hit_object
+  end
+ end
+end
+
+function getOtherDisAndRot()
+ local board=getOtherBoard()
+ if board then
+  return{getDisPos(board),board.GetRotation()}
+ end
+ local fallback={getDisPos(self),self.GetRotation()}
+ fallback[1].y=fallback[1].y+2.5
+ return fallback
+end
+
+function getOtherDeckAndRot()
+ local board=getOtherBoard()
+ if board then
+  return{getDeckPos(board),board.GetRotation()}
+ end
+ local fallback={getDeckPos(self),self.GetRotation()}
+ fallback[1].y=fallback[1].y+2.5
+ return fallback
 end
 
 function discard(cardpos,wellId)
  local selfRot=self.getRotation()
- local disPos=self.positionToWorld({-1.41,2,0.463})
- emptyWell(wellId)
+ local disPos=getDisPos(self)
  local zone1=castWrap(cardpos,{2.5,2,4})
  for _,col in pairs(zone1) do
   if col.hit_object.type=="Card"or col.hit_object.type=="Deck"then
@@ -566,6 +604,7 @@ function discard(cardpos,wellId)
    col.hit_object.call("deleteBrace",{disPos,selfRot})
   end
  end
+ emptyWell(wellId,getDisPos(),getOtherDisAndRot(),false)
 end
 
 function cleanUpPrompt(obj,color)
@@ -575,10 +614,7 @@ end
 function cleanUp()
  local selfRot=self.getRotation()
  selfRot.z=selfRot.z+180
- local deckPos=self.positionToWorld({-1.41,2,0.03})
- for c=0,10 do
-  emptyWell(c)
- end
+ local deckPos=getDeckPos(self)
  local zone1=castWrap(self.positionToWorld{0,0,0},{25,2,15})
  for _,col in pairs(zone1) do
   if col.hit_object.type=="Card"or col.hit_object.type=="Deck"then
@@ -588,10 +624,14 @@ function cleanUp()
    col.hit_object.call("deleteBrace",{deckPos,selfRot})
   end
  end
+ for c=0,10 do
+  local otherDeck=getOtherDeckAndRot()
+  otherDeck[2][3]=otherDeck[2][3]+180
+  emptyWell(c,deckPos,otherDeck,true)
+ end
 end
 
-WellLuaScript=[[
---PTCG Energy Well,created by Lotus Assassin and edited by Pepper0ni
+WellLuaScript=[[--PTCG Energy Well,created by Lotus Assassin and edited by Pepper0ni
 energyUI={
  ["Darkness Energy"]="1030706086614178330/4BF95A690F7DA49C8FB1463B8E5F678703F7F45C",
  ["Fairy Energy"]="1030706086614178507/2BB4792D5BF0D974368EFDE432484ABBCDB33AA0",
@@ -715,6 +755,10 @@ energyUI={
  ["Basic Metal Energy"]="1030706086614178951/97976CC1484C2344BF88BC4EDFCB5E4A74594199",
  ["Basic Psychic Energy"]="1030706086614179070/5936733CF9AA0FEC120262A82643501F5D98BC01",
  ["Basic Water Energy"]="1030706086614179173/A6197B243E1F67E908D76B837FC3EDCCCDD399EC",
+ ["Jet Energy"]="2029481402800694543/95AD7BFED67BE9836D62AD49F848465BC21B803E",
+ ["Reversal Energy"]="2029481402800701076/014B377B30DAB9E0424CCAA4429FE72414AD9FC0",
+ ["Luminous Energy"]="2029481402800707102/056C01022AF9BA02183923D19F727C94FC45D780",
+ ["Theraputic Energy"]="2029481402800732009/3F88E5E7B97994D74BFEEE639E7F0A75F54C360D",
 }
 energyUIFiltered={
  ["Electrode~Base"]="1826780185923088169/8F47AC221D9AFD36BEDABB9D9354B01BB0E4F2D6",
@@ -960,6 +1004,7 @@ toolUI={
  ["Sky Seal Stone"]="2012580224554736408/20BC10CBCC1320E79DCBDD539CF09EDACF3D5B48",
  ["Defiant Band"]="2038482440041482523/AAF9A5015FECEB0F33C25522BC934B86D9F6EAD0",
  ["Rock Chestplate"]="2038482440041483050/22C5E6CBC94CAFE6203FED9557EA9581EE55CEAC",
+ ["Bravery Charm"]="2029481402800688037/BC411C4D3B5C1210FFB9BE0975A4702A4BD888F9",
 }
 toolUIFiltered={
  ["Klefki~Steam S"]="1829034336112395603/B07DB6CF60F329FDAED655801B8A0700A9C5C529",
@@ -1194,21 +1239,32 @@ function dragCard(player,alt,id)
 end
 
 function clickAll(player)
- emptyWell({self.positionToWorld({-13.15,0,16}),self.getRotation()})
+ local rot=self.getRotation()
+ emptyWell({self.positionToWorld({-10.15,0,16}),rot,self.positionToWorld({-29,0,16}),rot})
 end
 
 function dragAll(player)
- playpos=player.getPointerPosition()
+ local playpos=player.getPointerPosition()
  playpos.y=playpos.y+1
- emptyWell({playpos,{0,player.getPointerRotation(),0}})
+ local flarePos=player.getPointerPosition()
+ flarePos.y=flarePos.y+2
+ emptyWell({playpos,{0,player.getPointerRotation(),0},flarePos,{0,player.getPointerRotation()+90,0}})
 end
 
 function emptyWell(posRot)
  local pos=posRot[1]
  local rot=posRot[2]
+ local flarePos=posRot[3]
+ local flareRot=posRot[4]
  objs=self.getObjects()
  for k,v in pairs(objs)do
-  if v~=nil then removeCard(v.guid,pos,rot)end
+  if v~=nil then
+   if endsWith(v.name,"Hyper Gear")then
+    removeCard(v.guid,flarePos,flareRot)
+   else
+    removeCard(v.guid,pos,rot)
+   end
+  end
  end
 end
 
@@ -1237,6 +1293,10 @@ end
 
 function startsWith(input,prefix)
  return string.sub(input,1,#prefix)==prefix
+end
+
+function endsWith(input,suffix)
+ return string.sub(input,#input-(#suffix-1),#input)==suffix
 end
 
 function onDestroy()
