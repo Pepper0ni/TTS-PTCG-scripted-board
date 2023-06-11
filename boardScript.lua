@@ -109,7 +109,7 @@ local listOfImages={
 
 self.alt_view_angle={0,90,0}
 lastButtonPress=os.time()
-topSnaps={
+mainSnaps={
  {position={-0.0025,0.1,-0.715}},--active card
  {position={-0.0025,-0.9,-0.84}},--active BREAK
  {position={0.1975,0.1,-0.4625},rotation_snap=true},--active energy
@@ -139,7 +139,7 @@ topSnaps={
  {position={1.1,0.1,0.9525},rotation_snap=true},--bench 1 energy
  {position={-0.74,0.1,0.9525},rotation_snap=true},--bench 5 energy
 }
-botSnaps={
+exSnaps={
  {position={0.44,0.1,0.05}},--bench 7 card
  {position={-0.02,0.1,0.05}},--bench 8 card
  {position={-0.48,0.1,0.05}},--bench 9 card
@@ -149,12 +149,12 @@ botSnaps={
  {position={0.64,0.1,0.3025},rotation_snap=true},--bench 7 energy
  {position={0.18,0.1,0.3025},rotation_snap=true},--bench 8 energy
  {position={-0.28,0.1,0.3025},rotation_snap=true},--bench 9 energy
- {position={0.44,0.1,0.05}},--bench 6 card
- {position={-0.02,0.1,0.05}},--bench 0 card
- {position={-0.02,-0.9,-0.075}},--bench 6 BREAK
- {position={-0.48,-0.9,-0.075}},--bench 0 BREAK
- {position={0.64,0.1,0.3025},rotation_snap=true},--bench 6 energy
- {position={0.18,0.1,0.3025},rotation_snap=true},--bench 0 energy
+ {position={0.9,0.1,0.05}},--bench 6 card
+ {position={-0.94,0.1,0.05}},--bench 0 card
+ {position={0.9,-0.9,-0.075}},--bench 6 BREAK
+ {position={-0.94,-0.9,-0.075}},--bench 0 BREAK
+ {position={1.1,0.1,0.3025},rotation_snap=true},--bench 6 energy
+ {position={-0.74,0.1,0.3025},rotation_snap=true},--bench 0 energy
 }
 
 function onLoad(state)
@@ -229,24 +229,23 @@ end
 function setUpBoard()
  self.clearButtons()
  local snaps={}
- local topSnapCount=28
- local botSnapCount=0
+ local mainSnapCount=28
+ local exSnapCount=0
  if bench8 then
   if revbench then
-   topSnapCount=22
-   botSnapCount=15
+   mainSnapCount=22
+   exSnapCount=15
   else
-   topSnapCount=28
-   botSnapCount=9
+   exSnapCount=9
   end
  else
   if revbench then
-   topSnapCount=13
-   botSnapCount=15
+   mainSnapCount=13
+   exSnapCount=15
   end
  end
- for c=1,topSnapCount do snaps[#snaps+1]=topSnaps[c]end
- for c=1,botSnapCount do snaps[#snaps+1]=botSnaps[c]end
+ for c=1,mainSnapCount do snaps[#snaps+1]=mainSnaps[c]end
+ for c=1,exSnapCount do snaps[#snaps+1]=exSnaps[c]end
  self.setSnapPoints(snaps)
  local params={function_owner=self,
  font_size=200,
@@ -412,7 +411,7 @@ function getDeck(color)
 end
 
 function castWrap(origin,size)
- return Physics.cast({origin=origin,direction={0,1,0},type=3,size=size,max_distance=0,orientation=self.GetRotation(),debug=true})
+ return Physics.cast({origin=origin,direction={0,1,0},type=3,size=size,max_distance=0,orientation=self.GetRotation()})
 end
 
 function changeArt()
@@ -604,7 +603,7 @@ function discard(cardpos,wellId)
    col.hit_object.call("deleteBrace",{disPos,selfRot})
   end
  end
- emptyWell(wellId,getDisPos(),getOtherDisAndRot(),false)
+ emptyWell(wellId,getDisPos(self),getOtherDisAndRot(),false)
 end
 
 function cleanUpPrompt(obj,color)
