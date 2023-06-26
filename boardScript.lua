@@ -164,11 +164,13 @@ function onLoad(state)
   curCut=save.curCut
   bench8=save.bench8
   revbench=save.revbench
+  hand=save.hand
  else
   curImage=1
   curCut=7
   bench8=false
   revbench=false
+  hand=false
  end
  if self.GetCustomObject().image!=getSteamUrl(listOfImages[curImage])then changeArt()end
  setUpBoard()
@@ -199,6 +201,7 @@ function onLoad(state)
 }
 
  self.addContextMenuItem("Reverse Bench",function()revBench()end)
+ self.addContextMenuItem("Sync with your hand",function(player_color)syncHand(player_color)end)
  self.addContextMenuItem("Delete Wells",function()deleteWells()end)
  self.addContextMenuItem("Respawn Wells",function()createWells()end)
  createWells()
@@ -224,6 +227,11 @@ function makeZone(c,params,disParams)
  end
  butWrapper(params,{hori+0.025,0.1,ver},'Switch','Switch Benched Mon with the Active','clickSwitch'..tostring(c))
  butWrapper(disParams,{hori+0.195,0.1,0.47+ver},'⌦','Discard this Pokemon and all attached cards','discard'..tostring(c))
+end
+
+function syncHand(player_color)
+ hand=player_color
+ saveData()
 end
 
 function setUpBoard()
@@ -283,16 +291,18 @@ function setUpBoard()
  else
   butWrapper(params,{1.4,0.1,0.8},'Large Bench','Expand the bench to hold 8 Mons',"toggleBench")
  end
+ butWrapper(params,{1.4,0.1,0.875},'Bottom-deck hand','Shuffle your hand and place it on the bottom of the deck',"botDeckHand")
 
  butWrapper(params,{-1.4,0.1,0.7},'Setup 6 Prizes','Take 6 prizes from your Deck',"set6Prizes")
  butWrapper(params,{-1.4,0.1,0.775},'Setup 4 Prizes','Take 4 prizes from your Deck',"set4Prizes")
  butWrapper(params,{-1.4,0.1,0.85},'Setup 3 Prizes','Take 3 prizes from your Deck',"set3Prizes")
+ butWrapper(params,{-1.4,0.1,0.925},'Shuffle Prizes','Shuffle Face-down Prizes',"groupPrizes")
  butWrapper(params,{1.4,0.1,0.725},'Reset','Reset the game by putting all cards into the deck.',"cleanUpPrompt")
 
  params.height=640
  params.width=450
  butWrapper(params,{1.63,0.1,-0.12},'Cut\nTop\nX','Cut the top X cards of the deck and places them aside, as Cutting the top of a face-down deck is awkward in TTS otherwise. What you think cuts from the top actually cuts from the bottom.\nX is set by the number below.',"cutTopDeck")
- butWrapper(params,{1.63,0.1,0.22},'Cut\nBot.\nX','Cut the bottom X cards of the deck and places them aside\nX is set by the number below.',"cutBottomDeck")
+ butWrapper(params,{1.63,0.1,0.22},'Cut\nBot.\nX','Cut the bottom X cards of the deck and places them aside\nX is set by the number above.',"cutBottomDeck")
  params.height=250
  params.color={0,0.5,0}
  butWrapper(params,{1.63,0.1,0.01},'+','Increase Cut Amount',"incCut")
@@ -410,8 +420,8 @@ function getDeck(color)
  broadcastToColor("Deck doesn't exist.",color,{1,0,0})
 end
 
-function castWrap(origin,size)
- return Physics.cast({origin=origin,direction={0,1,0},type=3,size=size,max_distance=0,orientation=self.GetRotation()})
+function castWrap(origin,size,debug)
+ return Physics.cast({origin=origin,direction={0,1,0},type=3,size=size,max_distance=0,orientation=self.GetRotation(),debug=debug})
 end
 
 function changeArt()
@@ -425,7 +435,7 @@ function getSteamUrl(url)
 end
 
 function saveData()
- local save={curImage=curImage,curCut=curCut,bench8=bench8,revbench=revbench}
+ local save={curImage=curImage,curCut=curCut,bench8=bench8,revbench=revbench,hand=hand}
  self.script_state=json.serialize(save)
 end
 
@@ -434,8 +444,8 @@ function switch(pos1,pos2,color)
  lastButtonPress=os.time()
  local zone1=castWrap(pos1,{2.9,2,4})
  local zone2=castWrap(pos2,{2.9,2,4})
- for _,col in pairs(zone1) do moveObject(col.hit_object,pos1,pos2)end
- for _,col in pairs(zone2) do moveObject(col.hit_object,pos2,pos1)end
+ for _,col in pairs(zone1)do moveObject(col.hit_object,pos1,pos2)end
+ for _,col in pairs(zone2)do moveObject(col.hit_object,pos2,pos1)end
  lastButtonPress=os.time()
 end
 
@@ -509,22 +519,35 @@ function createWell(pos)
  end
 end
 
-function set6Prizes(obj,color,alt_click)
- setPrizes(color,6)
+function set6Prizes(obj,color)
+ setPrizes(getDeck(color),6)
 end
 
-function set4Prizes(obj,color,alt_click)
- setPrizes(color,4)
+function set4Prizes(obj,color)
+ setPrizes(getDeck(color),4)
 end
 
-function set3Prizes(obj,color,alt_click)
- setPrizes(color,3)
+function set3Prizes(obj,color)
+ setPrizes(getDeck(color),3)
 end
 
-function setPrizes(color,number)
- deck=getDeck(color)
+function setPrizes(deck,number)
  if deck then
-  for c=0,number-1,1 do deck.takeObject({position=self.positionToWorld({1.263+(0.274*(c%2)),1,-0.401+(math.floor(c/2)*0.431)})})end
+  for c=0,number-1,1 do
+  local last=false
+   if deck.remainder then last=true end
+   local nextPrize=nil
+   local skip=false
+   if c>=6 then nextPrize={1.263+(0.274*math.floor(c/3)),0.3,-0.401+(c%3*0.431)}else nextPrize={1.263+(0.274*(c%2)),0.3,-0.401+(math.floor(c/2)*0.431)}end
+   local zone=castWrap(self.positionToWorld(nextPrize),{2,0.5,3})
+   for _,col in pairs(zone)do
+    if (col.hit_object.type=="Card"or col.hit_object.type=="Deck")then skip=true end
+   end
+   if not skip then
+    deck.takeObject({position=self.positionToWorld(nextPrize)})
+    if last then return end
+   end
+  end
   return
  end
 end
@@ -607,26 +630,92 @@ function discard(cardpos,wellId)
 end
 
 function cleanUpPrompt(obj,color)
- Player[color].showConfirmDialog("Put all the cards into the deck? (it is not shuffled)",cleanUp)
+ Player[color].showConfirmDialog("Put all the cards into the deck and shuffle it?",cleanUp)
 end
 
 function cleanUp()
  local selfRot=self.getRotation()
  selfRot.z=selfRot.z+180
  local deckPos=getDeckPos(self)
- local zone1=castWrap(self.positionToWorld{0,0,0},{25,2,15})
- for _,col in pairs(zone1) do
-  if col.hit_object.type=="Card"or col.hit_object.type=="Deck"then
-   col.hit_object.setPositionSmooth(deckPos,false,false)
-   col.hit_object.setRotationSmooth(selfRot,false,true)
-  elseif col.hit_object.type=="Bag"and col.hit_object.getName()=="Multi-card brace"then
-   col.hit_object.call("deleteBrace",{deckPos,selfRot})
-  end
+ local zone=castWrap(self.positionToWorld{0,0,0},{25,2,15})
+ for _,col in pairs(zone) do
+  processCleanUp(col.hit_object,deckPos,selfRot)
  end
  for c=0,10 do
   local otherDeck=getOtherDeckAndRot()
   otherDeck[2][3]=otherDeck[2][3]+180
   emptyWell(c,deckPos,otherDeck,true)
+ end
+ handToDeck(deckPos,selfRot)
+ Wait.time(shuffleDeck,1.1)
+end
+
+function processCleanUp(obj,deckPos,selfRot)
+ if obj.type=="Card"or obj.type=="Deck"then
+  obj.use_hands=false
+  obj.setPositionSmooth(deckPos,false,false)
+  obj.setRotationSmooth(selfRot,false,true)
+  Wait.time(function()obj.use_hands=true end,0.15)
+ elseif obj.type=="Bag"and obj.getName()=="Multi-card brace"then
+  obj.call("deleteBrace",{deckPos,selfRot})
+ end
+end
+
+function shuffleDeck()
+ local zone=castWrap(self.positionToWorld({-1.41,0.1,0.03}),{2.9,0.5,4})
+ for _,col in pairs(zone)do
+  if col.hit_object.type=="Deck"then
+   col.hit_object.randomize()
+  end
+ end
+end
+
+function handToDeck(deckPos,selfRot)
+ if hand then
+  local handObjs=Player[hand].getHandObjects(1)
+  for _,obj in pairs(handObjs) do
+   processCleanUp(obj,deckPos,selfRot)
+  end
+ end
+end
+
+function botDeckHand()
+ if not hand then
+  local selfRot=self.getRotation()
+  selfRot.z=selfRot.z+180
+  local deckPos=getDeckPos(self)
+  deckPos[2]=deckPos[2]+0.27
+  local upPos={deckPos[1],deckPos[2]+3,deckPos[3]}
+  local zone=castWrap(deckPos,{2.9,0.5,4})
+  for _,col in pairs(zone)do
+   moveObject(col.hit_object,deckPos,upPos)
+   col.hit_object.locked=true
+   Wait.time(function()col.hit_object.locked=false end,1.1)
+  end
+  handToDeck(deckPos,selfRot)
+  Wait.time(shuffleDeck,1.1)
+ else
+
+ end
+end
+
+function groupPrizes()
+ local zone=castWrap(self.positionToWorld({1.537,0.1,0.03}),{7,0.5,10})
+ for _,col in pairs(zone)do
+  if (col.hit_object.type=="Card"or col.hit_object.type=="Deck")and col.hit_object.is_face_down then
+   col.hit_object.setPositionSmooth(self.positionToWorld{1.4,0.1,0.892},false,true)
+  end
+ end
+ Wait.time(shufflePrizes,0.5)
+end
+
+function shufflePrizes()
+ local zone=castWrap(self.positionToWorld{1.4,0.1,0.892},{2,0.5,3})
+ for _,col in pairs(zone)do
+  if col.hit_object.type=="Deck"then
+   col.hit_object.randomize()
+   Wait.time(function() setPrizes(col.hit_object,12)end,0.3)
+  end
  end
 end
 
