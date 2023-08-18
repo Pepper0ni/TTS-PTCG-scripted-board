@@ -226,11 +226,11 @@ function makeZone(c,params,disParams)
   ver=-0.25
  end
  butWrapper(params,{hori+0.025,0.1,ver},'Switch','Switch Benched Mon with the Active','clickSwitch'..tostring(c))
- butWrapper(disParams,{hori+0.195,0.1,0.47+ver},'⌦','Discard this Pokemon and all attached cards','discard'..tostring(c))
+ butWrapper(disParams,{hori+0.195,0.1,0.47+ver},'╳','Discard this Pokemon and all attached cards','discard'..tostring(c))
 end
 
-function syncHand(player_color)
- hand=player_color
+function syncHand(color)
+ hand=color
  saveData()
 end
 
@@ -265,7 +265,7 @@ function setUpBoard()
  rotation={0,0,0},
  }
  disParams={function_owner=self,
- font_size=200,
+ font_size=230,
  color={0,0,0.5},
  font_color={1,1,1},
  width=340,
@@ -274,7 +274,7 @@ function setUpBoard()
  rotation={0,0,0},
  }
 
- butWrapper(disParams,{0.1775,0.1,-0.545},'⌦','Discard this Pokemon and all attached cards','discard0')
+ butWrapper(disParams,{0.1775,0.1,-0.545},'╳','Discard this Pokemon and all attached cards','discard0')
 
  if revbench then
   for c=6,10 do makeZone(c,params,disParams)end
@@ -322,13 +322,13 @@ function butWrapper(params,pos,label,tool,func)
  self.createButton(params)
 end
 
-function previousArt(obj,color,alt_click)
+function previousArt()
  curImage=curImage-1
  if curImage==0 then curImage=#listOfImages end
  changeArt()
 end
 
-function nextArt(obj,color,alt_click)
+function nextArt()
  curImage=curImage+1
  if curImage>#listOfImages then curImage=1 end
  changeArt()
@@ -679,8 +679,8 @@ function handToDeck(deckPos,selfRot)
  end
 end
 
-function botDeckHand()
- if not hand then
+function botDeckHand(_,color)
+ if hand then
   local selfRot=self.getRotation()
   selfRot.z=selfRot.z+180
   local deckPos=getDeckPos(self)
@@ -695,7 +695,7 @@ function botDeckHand()
   handToDeck(deckPos,selfRot)
   Wait.time(shuffleDeck,1.1)
  else
-
+  broadcastToColor("Please sync a hand to this board.",color,{1,0,0})
  end
 end
 
@@ -1093,6 +1093,8 @@ toolUI={
  ["Defiant Band"]="2038482440041482523/AAF9A5015FECEB0F33C25522BC934B86D9F6EAD0",
  ["Rock Chestplate"]="2038482440041483050/22C5E6CBC94CAFE6203FED9557EA9581EE55CEAC",
  ["Bravery Charm"]="2029481402800688037/BC411C4D3B5C1210FFB9BE0975A4702A4BD888F9",
+ ["Patrol Cap"]="2022731800084112524/3898270240E1BB2A83AA84DFFC6FA9FEEAC696AD",
+ ["Vengeful Punch"]="2022731800084112244/32686C87803FEA5D49A58B6C8D359E4C0FD18A34",
 }
 toolUIFiltered={
  ["Klefki~Steam S"]="1829034336112395603/B07DB6CF60F329FDAED655801B8A0700A9C5C529",
