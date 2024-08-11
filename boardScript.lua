@@ -431,7 +431,7 @@ function changeArt()
 end
 
 function getSteamUrl(url)
- return"http://cloud-3.steamusercontent.com/ugc/"..url.."/"
+ return"https://steamusercontent-a.akamaihd.net/ugc/"..url.."/"
 end
 
 function saveData()
@@ -719,7 +719,8 @@ function shufflePrizes()
  end
 end
 
-WellLuaScript=[[--PTCG Energy Well,created by Lotus Assassin and edited by Pepper0ni
+WellLuaScript=[[
+--PTCG Energy Well,created by Lotus Assassin and edited by Pepper0ni
 energyUI={
  ["Darkness Energy"]="1030706086614178330/4BF95A690F7DA49C8FB1463B8E5F678703F7F45C",
  ["Fairy Energy"]="1030706086614178507/2BB4792D5BF0D974368EFDE432484ABBCDB33AA0",
@@ -850,6 +851,8 @@ energyUI={
  ["Medical Energy"]="2173609908990292135/9CC546960026DDE3A6086DE2F76E089075A4C476",
  ["Mist Energy"]="2415690703816703336/D72CB04106F601285221C08029C2219907E1BA6A",
  ["Neo Upper Energy"]="2415690703816702529/8673C6C120EBDBA4924165905DE3C39F17B579FA",
+ ["Boomerang Energy"]="2447222068927978257/D74365EEC965FE632EA42AC7921C8FE63549474B",
+ ["Legacy Energy"]="2447222068927977912/A05C2BE19DFC8022639B55F2890B676BEB5CDA8F",
 }
 energyUIFiltered={
  ["Electrode~Base"]="1826780185923088169/8F47AC221D9AFD36BEDABB9D9354B01BB0E4F2D6",
@@ -1116,6 +1119,10 @@ toolUI={
  ["Heavy Baton"]="2415690703816702112/C41D60F7D75646EC497741F840BEA134D7071E80",
  ["Hero's Cape"]="2415691257110222200/B926B6EB42493B5DE9FBA1D6730D721FA36AD3FC",
  ["Maximum Belt"]="2415691257110221580/0996A494FCB88D1E9EAA4F1E7F8EDC96A61C51CA",
+ ["Handheld Fan"]="2447222068927981906/756E3F51B4402984D2C9D749E44C696A469EE926",
+ ["Survival Brace"]="2447222068927981260/C402F89D72F60D4BA95327311D9A6D5BD9C20C4D",
+ ["Binding Mochi"]="2471996849309762281/DBEE89643067B5E0AA849C5CAB32210EFD2FC890",
+ ["Power Hourglass"]="2471996849309761673/5F653466BB0ADA15E93B3DF63E95DF943613406C",
 }
 toolUIFiltered={
  ["Klefki~Steam S"]="1829034336112395603/B07DB6CF60F329FDAED655801B8A0700A9C5C529",
@@ -1175,13 +1182,13 @@ end
 function redrawUI()
  countCardsInBag()
 --are we condensing the energy (ie showing 2x text)
- local assets={{name="All",url="http://cloud-3.steamusercontent.com/ugc/1795270222392841045/E8BCB5066D63AB397B4603965430872101672062/"}}
+ local assets={{name="All",url="https://steamusercontent-a.akamaihd.net/ugc/1795270222392841045/E8BCB5066D63AB397B4603965430872101672062/"}}
  local e={}
  local t={}
- if faceDown then assets[2]={name="faceDown",url="http://cloud-3.steamusercontent.com/ugc/1762617631231973416/3DFCBC756723A9F7EF1B5AA69EE76D0B3960267F/"}end
+ if faceDown then assets[2]={name="faceDown",url="https://steamusercontent-a.akamaihd.net/ugc/1762617631231973416/3DFCBC756723A9F7EF1B5AA69EE76D0B3960267F/"}end
 
  for k,v in pairs(energy)do
-  if v>1 or faceDown~=k then assets[#assets+1]={name=k,url="http://cloud-3.steamusercontent.com/ugc/"..(energyUI[k]or energyUIFiltered[k]).."/"}end
+  if v>1 or faceDown~=k then assets[#assets+1]={name=k,url="https://steamusercontent-a.akamaihd.net/ugc/"..(energyUI[k]or energyUIFiltered[k]).."/"}end
   if k==faceDown then
    e[#e+1]=getElementImage(k,"faceDown",600)
    v=v-1
@@ -1195,7 +1202,7 @@ function redrawUI()
  end
  local wide=false
  for k,v in pairs(tools)do
-  assets[#assets+1]={name=k,url="http://cloud-3.steamusercontent.com/ugc/"..(toolUI[k]or toolUIFiltered[k]).."/"}
+  assets[#assets+1]={name=k,url="https://steamusercontent-a.akamaihd.net/ugc/"..(toolUI[k]or toolUIFiltered[k]).."/"}
   if v>1 then
    t[#t+1]=getToolFrame({getElementImage(k,k,540),getElementText(v)})
    wide=true
